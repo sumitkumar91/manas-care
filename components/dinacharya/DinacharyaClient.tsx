@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import {
   DOSHA_ZONES,
   DOSHA_COLORS,
-  classifyByKeyword,
   getZoneById,
   getCurrentZone,
   type Task,
@@ -45,16 +44,6 @@ export function DinacharyaClient() {
     if (!text) return;
     setInput("");
 
-    const zoneId = classifyByKeyword(text);
-
-    if (zoneId) {
-      trackEvent("dinacharya_task_added", { zone_id: zoneId, method: "keyword" });
-      persist([...tasks, { id: crypto.randomUUID(), text, zoneId, done: false }]);
-      inputRef.current?.focus();
-      return;
-    }
-
-    // Keyword miss — ask Gemini
     setClassifying(true);
     try {
       const res = await fetch("/api/classify-task", {
@@ -62,9 +51,9 @@ export function DinacharyaClient() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ task: text }),
       });
-      const { zoneId: aiZoneId } = await res.json();
-      trackEvent("dinacharya_task_added", { zone_id: aiZoneId ?? "pitta-midday", method: "ai" });
-      persist([...tasks, { id: crypto.randomUUID(), text, zoneId: aiZoneId ?? "pitta-midday", done: false }]);
+      const { zoneId } = await res.json();
+      trackEvent("dinacharya_task_added", { zone_id: zoneId ?? "pitta-midday", method: "ai" });
+      persist([...tasks, { id: crypto.randomUUID(), text, zoneId: zoneId ?? "pitta-midday", done: false }]);
     } catch {
       persist([...tasks, { id: crypto.randomUUID(), text, zoneId: "pitta-midday", done: false }]);
     } finally {
