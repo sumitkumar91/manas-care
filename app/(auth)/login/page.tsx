@@ -1,7 +1,5 @@
-import { LoginForm } from "@/components/auth/LoginForm";
-
-export const metadata = { title: "Sign in - Manas Care" };
+import { redirect } from "next/navigation";
 
 export default function LoginPage() {
-  return <LoginForm />;
+  redirect("/");
 }

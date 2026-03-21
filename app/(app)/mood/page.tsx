@@ -18,7 +18,7 @@ function getTodayRange() {
 export default async function MoodPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/");
 
   const { start, end } = getTodayRange();
   const { data: todayLog } = await supabase

@@ -24,7 +24,7 @@ function getTodayRange() {
 export default async function DashboardPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/");
 
   const [{ data: profile }, { data: streak }, { data: todayLog }] = await Promise.all([
     supabase.from("profiles").select("display_name").eq("id", user.id).single(),

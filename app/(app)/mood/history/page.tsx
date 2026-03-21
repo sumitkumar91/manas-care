@@ -12,7 +12,7 @@ export const metadata = { title: "Mood History - Manas Care" };
 export default async function MoodHistoryPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/");
 
   // Fetch last 30 days
   const since = new Date(Date.now() - 30 * 86400000).toISOString();

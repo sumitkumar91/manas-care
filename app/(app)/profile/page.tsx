@@ -10,7 +10,7 @@ export const metadata = { title: "Profile - Manas Care" };
 export default async function ProfilePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/");
 
   const { data: profile } = await supabase
     .from("profiles")
@@ -18,7 +18,7 @@ export default async function ProfilePage() {
     .eq("id", user.id)
     .single();
 
-  if (!profile) redirect("/login");
+  if (!profile) redirect("/");
 
   return (
     <div>
