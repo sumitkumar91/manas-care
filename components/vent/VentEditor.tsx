@@ -10,6 +10,7 @@ import { CrisisResourceBanner } from "@/components/chat/CrisisResourceBanner";
 import { GunaRecommendations } from "@/components/mood/GunaRecommendations";
 import type { Guna } from "@/lib/constants/gunas";
 import { toast } from "sonner";
+import { trackEvent } from "@/lib/analytics";
 
 type Stage = "write" | "response" | "done";
 
@@ -47,6 +48,7 @@ export function VentEditor({ userId }: Props) {
       // AI response is optional - don't block on failure
     }
 
+    trackEvent("vent_submitted");
     setStage("response");
     setLoading(false);
   }

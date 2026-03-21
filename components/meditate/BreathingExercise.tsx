@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { BREATHING_EXERCISES, type BreathingExercise } from "@/lib/constants/meditation";
+import { trackEvent } from "@/lib/analytics";
 
 export function BreathingExercisePanel() {
   const [selected, setSelected] = useState<BreathingExercise | null>(null);
@@ -88,6 +89,7 @@ function ActiveBreathing({ exercise, onExit }: { exercise: BreathingExercise; on
       setPhaseIndex(0);
       setElapsed(0);
     } else {
+      trackEvent("pranayama_started", { exercise_name: exercise.name });
       setRunning(true);
     }
   }

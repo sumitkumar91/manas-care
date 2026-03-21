@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { Plus, X, CheckCircle2, Circle, ChevronDown, ChevronUp, Zap, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { trackEvent } from "@/lib/analytics";
 
 const STORAGE_KEY = "manas-dinacharya-tasks";
 
@@ -47,6 +48,7 @@ export function DinacharyaClient() {
     const zoneId = classifyByKeyword(text);
 
     if (zoneId) {
+      trackEvent("dinacharya_task_added", { zone_id: zoneId, method: "keyword" });
       persist([...tasks, { id: crypto.randomUUID(), text, zoneId, done: false }]);
       inputRef.current?.focus();
       return;
@@ -61,6 +63,7 @@ export function DinacharyaClient() {
         body: JSON.stringify({ task: text }),
       });
       const { zoneId: aiZoneId } = await res.json();
+      trackEvent("dinacharya_task_added", { zone_id: aiZoneId ?? "pitta-midday", method: "ai" });
       persist([...tasks, { id: crypto.randomUUID(), text, zoneId: aiZoneId ?? "pitta-midday", done: false }]);
     } catch {
       persist([...tasks, { id: crypto.randomUUID(), text, zoneId: "pitta-midday", done: false }]);

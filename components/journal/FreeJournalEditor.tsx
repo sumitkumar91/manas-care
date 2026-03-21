@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { trackEvent } from "@/lib/analytics";
 
 interface FreeJournalEditorProps {
   userId: string;
@@ -41,6 +42,7 @@ export function FreeJournalEditor({ userId, existing }: FreeJournalEditorProps) 
         if (error) throw error;
       }
 
+      trackEvent("journal_saved", { entry_type: "free", is_edit: !!existing });
       toast.success("Entry saved");
       router.push("/journal");
       router.refresh();

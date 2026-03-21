@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { trackEvent } from "@/lib/analytics";
 
 interface MoodLogFormProps {
   userId: string;
@@ -52,6 +53,7 @@ export function MoodLogForm({ userId, existingLog }: MoodLogFormProps) {
       toast.error(error.message);
       setSaving(false);
     } else {
+      trackEvent("mood_logged", { mood_label: selectedMood.label, score });
       toast.success(existingLog ? "Mood updated" : "Mood logged ✓");
       router.push("/mood/history");
       router.refresh();

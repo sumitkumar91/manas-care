@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const DURATIONS = [
   { label: "3 min", seconds: 180 },
@@ -59,6 +60,7 @@ export function TratakaPractice() {
   }, [active]);
 
   function handleStart() {
+    trackEvent("trataka_started", { duration_seconds: selectedDuration.seconds });
     setDone(false);
     setRemaining(selectedDuration.seconds);
     setActive(true);
