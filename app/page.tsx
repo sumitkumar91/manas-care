@@ -127,6 +127,25 @@ export default async function LandingPage() {
         </div>
       </section>
 
+      {/* Discord */}
+      <section className="px-6 pb-16">
+        <div className="max-w-xl mx-auto text-center border rounded-3xl p-8 space-y-3 bg-[#5865F2]/5 border-[#5865F2]/20">
+          <p className="text-2xl">💬</p>
+          <h2 className="text-xl font-bold">Join the community</h2>
+          <p className="text-sm text-muted-foreground">
+            Talk to other users, share feedback, and stay updated on new features.
+          </p>
+          <a
+            href="https://discord.gg/b8TQgZqCKD"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-[#5865F2] text-white px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-[#4752C4] transition-colors"
+          >
+            Join Discord
+          </a>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t px-6 py-6 text-center text-xs text-muted-foreground">
         © {new Date().getFullYear()} Manas Care · Built with care for your mind.

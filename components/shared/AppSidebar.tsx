@@ -10,6 +10,7 @@ import {
   LogOut,
   Wind,
   Sparkles,
+  MessageSquarePlus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
@@ -24,6 +25,7 @@ const navItems = [
   { href: "/journal", label: "Journal", icon: BookOpen },
   { href: "/vent", label: "Vent", icon: Wind },
   { href: "/profile", label: "Profile", icon: User },
+  { href: "/feedback", label: "Feedback", icon: MessageSquarePlus },
 ];
 
 export function AppSidebar() {

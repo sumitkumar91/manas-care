@@ -12,6 +12,7 @@ import {
   LogOut,
   MoreHorizontal,
   X,
+  MessageSquarePlus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
@@ -26,8 +27,9 @@ const PRIMARY = [
 ];
 
 const MORE = [
-  { href: "/vent",    label: "Vent",    icon: Wind },
-  { href: "/profile", label: "Profile", icon: User },
+  { href: "/vent",     label: "Vent",     icon: Wind },
+  { href: "/profile",  label: "Profile",  icon: User },
+  { href: "/feedback", label: "Feedback", icon: MessageSquarePlus },
 ];
 
 export function MobileNav() {
