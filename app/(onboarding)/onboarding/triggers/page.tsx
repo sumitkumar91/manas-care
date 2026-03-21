@@ -51,7 +51,7 @@ export default function TriggersPage() {
       <div>
         <h2 className="text-lg font-semibold">What tends to affect your mood?</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          Knowing your stressors helps ManaCare personalize your experience.
+          Knowing your stressors helps Manas Care personalize your experience.
         </p>
       </div>
       <SelectionGrid

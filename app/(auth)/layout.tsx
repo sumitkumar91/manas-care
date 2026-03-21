@@ -7,7 +7,7 @@ export default function AuthLayout({
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary">ManaCare</h1>
+          <h1 className="text-3xl font-bold text-primary">Manas Care</h1>
           <p className="text-muted-foreground text-sm mt-1">
             Your mental wellness companion
           </p>

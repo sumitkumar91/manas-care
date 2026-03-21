@@ -5,7 +5,7 @@ import { StreakWidget } from "@/components/dashboard/StreakWidget";
 import { MoodSummaryCard } from "@/components/dashboard/MoodSummaryCard";
 import { QuickActions } from "@/components/dashboard/QuickActions";
 
-export const metadata = { title: "Dashboard — ManaCare" };
+export const metadata = { title: "Dashboard — Manas Care" };
 
 function getGreeting() {
   const hour = new Date().getHours();

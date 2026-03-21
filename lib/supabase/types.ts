@@ -1,4 +1,4 @@
-// Scaffold types matching the ManaCare schema.
+// Scaffold types matching the Manas Care schema.
 // Replace this file by running:
 //   npx supabase gen types typescript --project-id <your-project-id> > lib/supabase/types.ts
 

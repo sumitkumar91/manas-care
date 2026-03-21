@@ -44,7 +44,7 @@ export function PrivacySettingsForm({ settings }: PrivacySettingsFormProps) {
         <div>
           <h3 className="font-medium text-sm">AI companion</h3>
           <p className="text-xs text-muted-foreground mt-0.5">
-            Control what ManaCare AI can see about you.
+            Control what Manas Care AI can see about you.
           </p>
         </div>
         <div className="flex items-start justify-between gap-4 p-4 border rounded-lg">
@@ -53,7 +53,7 @@ export function PrivacySettingsForm({ settings }: PrivacySettingsFormProps) {
               Allow AI to use my mood & journal context
             </Label>
             <p className="text-xs text-muted-foreground">
-              When on, ManaCare AI uses your recent mood trends and journal titles (never content)
+              When on, Manas Care AI uses your recent mood trends and journal titles (never content)
               to give more personalised responses. Turn off for a fully generic experience.
             </p>
           </div>

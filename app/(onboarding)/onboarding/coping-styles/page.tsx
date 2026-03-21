@@ -83,7 +83,7 @@ export default function CopingStylesPage() {
       <div>
         <h2 className="text-lg font-semibold">How do you prefer to cope?</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          ManaCare will suggest strategies that match your style.
+          Manas Care will suggest strategies that match your style.
         </p>
       </div>
       <SelectionGrid

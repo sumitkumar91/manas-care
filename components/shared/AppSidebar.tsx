@@ -20,7 +20,7 @@ const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/mood", label: "Mood", icon: Smile },
   { href: "/journal", label: "Journal", icon: BookOpen },
-  { href: "/chat", label: "ManaCare AI", icon: MessageCircle },
+  { href: "/chat", label: "Manas Care AI", icon: MessageCircle },
   { href: "/profile", label: "Profile", icon: User },
 ];
 
@@ -38,8 +38,8 @@ export function AppSidebar() {
   return (
     <aside className="hidden md:flex flex-col w-60 min-h-screen border-r bg-sidebar px-3 py-5 shrink-0">
       <Link href="/dashboard" className="flex items-center gap-2 px-2 mb-6">
-        <span className="text-2xl font-bold text-primary">ManaCare</span>
-        <span className="text-sm text-muted-foreground font-medium">ManaCare</span>
+        <span className="text-2xl font-bold text-primary">Manas Care</span>
+        <span className="text-sm text-muted-foreground font-medium">Manas Care</span>
       </Link>
 
       <nav className="flex-1 space-y-1">
