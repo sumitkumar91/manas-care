@@ -88,7 +88,7 @@ export function ChatSession({ sessionId, initialMessages }: Props) {
           <div className="text-center py-12 space-y-2">
             <p className="text-2xl">💬</p>
             <p className="text-sm text-muted-foreground">
-              Hi! I'm Manas. What's on your mind today?
+              Hi! I'm ManaCare. What's on your mind today?
             </p>
             <p className="text-xs text-muted-foreground">
               Everything you share here is private.
@@ -147,7 +147,7 @@ export function ChatSession({ sessionId, initialMessages }: Props) {
           </Button>
         </div>
         <p className="text-center text-xs text-muted-foreground mt-2">
-          Manas AI is not a substitute for professional mental health care.
+          ManaCare AI is not a substitute for professional mental health care.
         </p>
       </div>
     </div>

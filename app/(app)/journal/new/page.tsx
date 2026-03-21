@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { JournalTypeSelector } from "@/components/journal/JournalTypeSelector";
 
-export const metadata = { title: "New Entry — Manas" };
+export const metadata = { title: "New Entry — ManaCare" };
 
 export default async function NewJournalEntryPage() {
   const supabase = await createClient();

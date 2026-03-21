@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { ChatListClient } from "@/components/chat/ChatListClient";
 
-export const metadata = { title: "Chat — Manas" };
+export const metadata = { title: "Chat — ManaCare" };
 
 export default async function ChatPage() {
   const supabase = await createClient();
@@ -18,7 +18,7 @@ export default async function ChatPage() {
   return (
     <div>
       <PageHeader
-        title="Manas AI"
+        title="ManaCare AI"
         description="A safe, non-judgmental space to talk."
       />
       <div className="p-6 max-w-2xl">

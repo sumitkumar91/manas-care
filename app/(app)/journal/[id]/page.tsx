@@ -9,7 +9,7 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
-export const metadata = { title: "Journal Entry — Manas" };
+export const metadata = { title: "Journal Entry — ManaCare" };
 
 export default async function JournalEntryPage({ params }: Props) {
   const { id } = await params;

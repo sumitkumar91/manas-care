@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 
-export const metadata = { title: "Check your email — Manas" };
+export const metadata = { title: "Check your email — ManaCare" };
 
 export default function ConvertConfirmPage() {
   return (

@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Manas — Your mental wellness companion",
+  title: "ManaCare — Your mental wellness companion",
   description:
-    "Manas helps students and young adults manage their mental health through mood tracking, guided journaling, and compassionate AI support.",
+    "ManaCare helps students and young adults manage their mental health through mood tracking, guided journaling, and compassionate AI support.",
 };
 
 export default function RootLayout({

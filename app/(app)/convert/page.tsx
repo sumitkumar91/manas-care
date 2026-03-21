@@ -1,7 +1,7 @@
 import { ConvertForm } from "@/components/auth/ConvertForm";
 import { PageHeader } from "@/components/shared/PageHeader";
 
-export const metadata = { title: "Create Account — Manas" };
+export const metadata = { title: "Create Account — ManaCare" };
 
 export default function ConvertPage() {
   return (

@@ -8,7 +8,7 @@ import { OnboardingProgress } from "@/components/onboarding/OnboardingProgress";
 import { SelectionGrid } from "@/components/onboarding/SelectionGrid";
 import { Button } from "@/components/ui/button";
 
-const STORAGE_KEY = "manas_onboarding";
+const STORAGE_KEY = "manascare_onboarding";
 const PREV = "/onboarding/triggers";
 
 export default function CopingStylesPage() {
@@ -83,7 +83,7 @@ export default function CopingStylesPage() {
       <div>
         <h2 className="text-lg font-semibold">How do you prefer to cope?</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          Manas will suggest strategies that match your style.
+          ManaCare will suggest strategies that match your style.
         </p>
       </div>
       <SelectionGrid

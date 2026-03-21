@@ -7,7 +7,7 @@ import { buttonVariants } from "@/lib/button-variants";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
 
-export const metadata = { title: "Mood History — Manas" };
+export const metadata = { title: "Mood History — ManaCare" };
 
 export default async function MoodHistoryPage() {
   const supabase = await createClient();

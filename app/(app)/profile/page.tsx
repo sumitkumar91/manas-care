@@ -5,7 +5,7 @@ import { ProfileForm } from "@/components/profile/ProfileForm";
 import { buttonVariants } from "@/lib/button-variants";
 import Link from "next/link";
 
-export const metadata = { title: "Profile — Manas" };
+export const metadata = { title: "Profile — ManaCare" };
 
 export default async function ProfilePage() {
   const supabase = await createClient();

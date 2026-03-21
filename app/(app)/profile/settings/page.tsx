@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { PrivacySettingsForm } from "@/components/profile/PrivacySettingsForm";
 
-export const metadata = { title: "Settings — Manas" };
+export const metadata = { title: "Settings — ManaCare" };
 
 export default async function SettingsPage() {
   const supabase = await createClient();

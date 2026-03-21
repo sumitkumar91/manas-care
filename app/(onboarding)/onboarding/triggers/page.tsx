@@ -7,7 +7,7 @@ import { OnboardingProgress } from "@/components/onboarding/OnboardingProgress";
 import { SelectionGrid } from "@/components/onboarding/SelectionGrid";
 import { Button } from "@/components/ui/button";
 
-const STORAGE_KEY = "manas_onboarding";
+const STORAGE_KEY = "manascare_onboarding";
 const NEXT = "/onboarding/coping-styles";
 const PREV = "/onboarding/goals";
 
@@ -51,7 +51,7 @@ export default function TriggersPage() {
       <div>
         <h2 className="text-lg font-semibold">What tends to affect your mood?</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          Knowing your stressors helps Manas personalize your experience.
+          Knowing your stressors helps ManaCare personalize your experience.
         </p>
       </div>
       <SelectionGrid

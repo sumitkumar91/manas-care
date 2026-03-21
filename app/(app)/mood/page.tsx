@@ -5,7 +5,7 @@ import { MoodLogForm } from "@/components/mood/MoodLogForm";
 import { buttonVariants } from "@/lib/button-variants";
 import Link from "next/link";
 
-export const metadata = { title: "Mood — Manas" };
+export const metadata = { title: "Mood — ManaCare" };
 
 function getTodayRange() {
   const start = new Date();

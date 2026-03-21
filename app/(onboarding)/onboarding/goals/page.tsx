@@ -7,7 +7,7 @@ import { OnboardingProgress } from "@/components/onboarding/OnboardingProgress";
 import { SelectionGrid } from "@/components/onboarding/SelectionGrid";
 import { Button } from "@/components/ui/button";
 
-const STORAGE_KEY = "manas_onboarding";
+const STORAGE_KEY = "manascare_onboarding";
 const NEXT = "/onboarding/triggers";
 
 export default function GoalsPage() {

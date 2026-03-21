@@ -9,7 +9,7 @@ interface Props {
   params: Promise<{ sessionId: string }>;
 }
 
-export const metadata = { title: "Manas AI — Manas" };
+export const metadata = { title: "ManaCare AI — ManaCare" };
 
 export default async function ChatSessionPage({ params }: Props) {
   const { sessionId } = await params;

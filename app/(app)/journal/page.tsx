@@ -4,7 +4,7 @@ import { buttonVariants } from "@/lib/button-variants";
 import { JournalEntryCard } from "@/components/journal/JournalEntryCard";
 import Link from "next/link";
 
-export const metadata = { title: "Journal — Manas" };
+export const metadata = { title: "Journal — ManaCare" };
 
 export default async function JournalPage() {
   const supabase = await createClient();
