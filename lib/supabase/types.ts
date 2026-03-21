@@ -87,6 +87,7 @@ export interface Database {
           score: number;
           notes: string | null;
           tags: string[] | null;
+          guna: "sattva" | "rajas" | "tamas" | null;
           created_at: string;
         };
         Insert: {
@@ -98,6 +99,7 @@ export interface Database {
           score: number;
           notes?: string | null;
           tags?: string[] | null;
+          guna?: "sattva" | "rajas" | "tamas" | null;
           created_at?: string;
         };
         Update: {
@@ -106,6 +108,7 @@ export interface Database {
           score?: number;
           notes?: string | null;
           tags?: string[] | null;
+          guna?: "sattva" | "rajas" | "tamas" | null;
         };
         Relationships: [];
       };

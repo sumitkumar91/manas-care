@@ -7,6 +7,8 @@ import { encryptJournal } from "@/lib/encryption/journal-crypto";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { CrisisResourceBanner } from "@/components/chat/CrisisResourceBanner";
+import { GunaRecommendations } from "@/components/mood/GunaRecommendations";
+import type { Guna } from "@/lib/constants/gunas";
 import { toast } from "sonner";
 
 type Stage = "write" | "response" | "done";
@@ -21,6 +23,7 @@ export function VentEditor({ userId }: Props) {
   const [stage, setStage] = useState<Stage>("write");
   const [aiResponse, setAiResponse] = useState<string | null>(null);
   const [crisis, setCrisis] = useState(false);
+  const [detectedGuna, setDetectedGuna] = useState<Guna | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {
@@ -38,6 +41,7 @@ export function VentEditor({ userId }: Props) {
         const data = await res.json();
         setAiResponse(data.message);
         setCrisis(data.crisis ?? false);
+        setDetectedGuna(data.guna ?? null);
       }
     } catch {
       // AI response is optional — don't block on failure
@@ -109,6 +113,10 @@ export function VentEditor({ userId }: Props) {
             {content}
           </p>
         </div>
+
+        {detectedGuna && (
+          <GunaRecommendations guna={detectedGuna} onDismiss={() => setDetectedGuna(null)} />
+        )}
 
         <div className="space-y-2">
           <p className="text-sm font-medium">What do you want to do with this?</p>

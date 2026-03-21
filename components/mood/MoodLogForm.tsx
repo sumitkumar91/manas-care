@@ -29,10 +29,7 @@ export function MoodLogForm({ userId, existingLog }: MoodLogFormProps) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!selectedMood) {
-      toast.error("Pick a mood first");
-      return;
-    }
+    if (!selectedMood) { toast.error("Pick a mood first"); return; }
 
     setSaving(true);
 
@@ -46,68 +43,41 @@ export function MoodLogForm({ userId, existingLog }: MoodLogFormProps) {
     let error;
 
     if (existingLog) {
-      ({ error } = await supabase
-        .from("mood_logs")
-        .update(payload)
-        .eq("id", existingLog.id));
+      ({ error } = await supabase.from("mood_logs").update(payload).eq("id", existingLog.id));
     } else {
-      ({ error } = await supabase
-        .from("mood_logs")
-        .insert({ ...payload, user_id: userId }));
-
-      // Update streak
+      ({ error } = await supabase.from("mood_logs").insert({ ...payload, user_id: userId }));
       if (!error) await updateStreak(userId);
     }
 
     if (error) {
       toast.error(error.message);
+      setSaving(false);
     } else {
       toast.success(existingLog ? "Mood updated" : "Mood logged ✓");
       router.push("/mood/history");
       router.refresh();
+      setSaving(false);
     }
-
-    setSaving(false);
   }
 
   async function updateStreak(uid: string) {
     const today = new Date().toISOString().split("T")[0];
-    const { data: streak } = await supabase
-      .from("streaks")
-      .select("*")
-      .eq("user_id", uid)
-      .single();
-
+    const { data: streak } = await supabase.from("streaks").select("*").eq("user_id", uid).single();
     if (!streak) return;
-
     const last = streak.last_active_at;
     const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
-
-    let newStreak = streak.current_streak;
-
-    if (last === today) return; // already logged today
-    if (last === yesterday) {
-      newStreak = streak.current_streak + 1;
-    } else {
-      newStreak = 1; // streak broken
-    }
-
-    await supabase
-      .from("streaks")
-      .update({
-        current_streak: newStreak,
-        longest_streak: Math.max(newStreak, streak.longest_streak),
-        last_active_at: today,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("user_id", uid);
+    if (last === today) return;
+    const newStreak = last === yesterday ? streak.current_streak + 1 : 1;
+    await supabase.from("streaks").update({
+      current_streak: newStreak,
+      longest_streak: Math.max(newStreak, streak.longest_streak),
+      last_active_at: today,
+      updated_at: new Date().toISOString(),
+    }).eq("user_id", uid);
   }
 
   const scoreLabel =
-    score >= 9 ? "Excellent" :
-    score >= 7 ? "Good" :
-    score >= 5 ? "Okay" :
-    score >= 3 ? "Low" : "Very low";
+    score >= 9 ? "Excellent" : score >= 7 ? "Good" : score >= 5 ? "Okay" : score >= 3 ? "Low" : "Very low";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8 max-w-lg">
@@ -119,10 +89,7 @@ export function MoodLogForm({ userId, existingLog }: MoodLogFormProps) {
             <button
               key={mood.emoji}
               type="button"
-              onClick={() => {
-                setSelectedMood(mood);
-                setScore(mood.score);
-              }}
+              onClick={() => { setSelectedMood(mood); setScore(mood.score); }}
               className={cn(
                 "flex flex-col items-center gap-1 p-3 rounded-xl border transition-all",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
@@ -132,9 +99,7 @@ export function MoodLogForm({ userId, existingLog }: MoodLogFormProps) {
               )}
             >
               <span className="text-2xl leading-none">{mood.emoji}</span>
-              <span className="text-[10px] text-muted-foreground font-medium">
-                {mood.label}
-              </span>
+              <span className="text-[10px] text-muted-foreground font-medium">{mood.label}</span>
             </button>
           ))}
         </div>
@@ -144,22 +109,17 @@ export function MoodLogForm({ userId, existingLog }: MoodLogFormProps) {
       <div className="space-y-3">
         <div className="flex justify-between items-center">
           <Label className="text-base font-medium">Intensity</Label>
-          <span className="text-sm font-semibold text-primary">
-            {score}/10 — {scoreLabel}
-          </span>
+          <span className="text-sm font-semibold text-primary">{score}/10 — {scoreLabel}</span>
         </div>
         <Slider
-          min={1}
-          max={10}
-          step={1}
+          min={1} max={10} step={1}
           value={[score]}
           onValueChange={(v) => setScore(Array.isArray(v) ? v[0] : v)}
           className="w-full"
           aria-label="Mood intensity"
         />
         <div className="flex justify-between text-xs text-muted-foreground">
-          <span>Very low</span>
-          <span>Excellent</span>
+          <span>Very low</span><span>Excellent</span>
         </div>
       </div>
 
