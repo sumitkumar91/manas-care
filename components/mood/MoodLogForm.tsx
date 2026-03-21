@@ -6,7 +6,6 @@ import { createClient } from "@/lib/supabase/client";
 import { MOODS } from "@/lib/constants/moods";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -102,24 +101,6 @@ export function MoodLogForm({ userId, existingLog }: MoodLogFormProps) {
               <span className="text-[10px] text-muted-foreground font-medium">{mood.label}</span>
             </button>
           ))}
-        </div>
-      </div>
-
-      {/* Score slider */}
-      <div className="space-y-3">
-        <div className="flex justify-between items-center">
-          <Label className="text-base font-medium">Intensity</Label>
-          <span className="text-sm font-semibold text-primary">{score}/10 - {scoreLabel}</span>
-        </div>
-        <Slider
-          min={1} max={10} step={1}
-          value={[score]}
-          onValueChange={(v) => setScore(Array.isArray(v) ? v[0] : v)}
-          className="w-full"
-          aria-label="Mood intensity"
-        />
-        <div className="flex justify-between text-xs text-muted-foreground">
-          <span>Very low</span><span>Excellent</span>
         </div>
       </div>
 

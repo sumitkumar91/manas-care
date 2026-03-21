@@ -46,18 +46,16 @@ export default function RootLayout({
       lang="en"
       className={`${nunito.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <head>
-        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="beforeInteractive" />
-        <Script id="gtag-init" strategy="beforeInteractive">{`
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Toaster richColors position="top-right" />
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', '${GA_ID}');
         `}</Script>
-      </head>
-      <body className="min-h-full flex flex-col">
-        {children}
-        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

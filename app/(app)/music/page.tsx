@@ -10,7 +10,7 @@ export default function MusicPage() {
         title="Music Therapy"
         description="Raga Chikitsa - Indian classical music prescribed for your mind and moment."
       />
-      <div className="p-6 max-w-lg">
+      <div className="p-6 max-w-5xl">
         <MusicTherapyClient />
       </div>
     </div>
