@@ -6,14 +6,10 @@ import {
   LayoutDashboard,
   Smile,
   BookOpen,
-  MessageCircle,
   User,
   LogOut,
   Wind,
-  Flower2,
-  Music2,
-  Flame,
-  Sun,
+  Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
@@ -24,13 +20,9 @@ import { Separator } from "@/components/ui/separator";
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/mood", label: "Mood", icon: Smile },
+  { href: "/vedic", label: "Vedic Practices", icon: Sparkles },
   { href: "/journal", label: "Journal", icon: BookOpen },
   { href: "/vent", label: "Vent", icon: Wind },
-  { href: "/music", label: "Music Therapy", icon: Music2 },
-  { href: "/meditate", label: "Pranayama", icon: Flower2 },
-  { href: "/trataka", label: "Trataka", icon: Flame },
-  { href: "/dinacharya", label: "Dinacharya", icon: Sun },
-  { href: "/chat", label: "Manas Care AI", icon: MessageCircle },
   { href: "/profile", label: "Profile", icon: User },
 ];
 
@@ -53,8 +45,11 @@ export function AppSidebar() {
 
       <nav className="flex-1 space-y-1">
         {navItems.map(({ href, label, icon: Icon }) => {
+          const VEDIC_SUBROUTES = ["/music", "/meditate", "/trataka", "/dinacharya"];
           const active =
-            pathname === href || pathname.startsWith(href + "/");
+            pathname === href ||
+            pathname.startsWith(href + "/") ||
+            (href === "/vedic" && VEDIC_SUBROUTES.some((r) => pathname === r || pathname.startsWith(r + "/")));
           return (
             <Link
               key={href}

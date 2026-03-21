@@ -1,21 +1,19 @@
 export type Dosha = "Vata" | "Pitta" | "Kapha";
-export type TaskCategory = "analytical" | "creative" | "physical" | "rest" | "other";
 
 export interface DoshaZone {
   id: string;
   dosha: Dosha;
   time: string;
-  hourRange: [number, number]; // wraps if end < start (e.g. [22, 2])
+  hourRange: [number, number];
   tagline: string;
   qualities: string[];
   bestForLabels: string[];
-  bestForCategories: TaskCategory[];
 }
 
 export interface Task {
   id: string;
   text: string;
-  category: TaskCategory;
+  zoneId: string;
   done: boolean;
 }
 
@@ -28,7 +26,6 @@ export const DOSHA_ZONES: DoshaZone[] = [
     tagline: "Stillness & intuition",
     qualities: ["Light", "Clear", "Spacious"],
     bestForLabels: ["Meditation", "Journaling", "Prayer", "Deep reading"],
-    bestForCategories: ["rest"],
   },
   {
     id: "kapha-morning",
@@ -38,7 +35,6 @@ export const DOSHA_ZONES: DoshaZone[] = [
     tagline: "Grounded & steady",
     qualities: ["Stable", "Building", "Methodical"],
     bestForLabels: ["Exercise", "Yoga", "Physical tasks", "Routine work"],
-    bestForCategories: ["physical"],
   },
   {
     id: "pitta-midday",
@@ -48,7 +44,6 @@ export const DOSHA_ZONES: DoshaZone[] = [
     tagline: "Sharp & analytical",
     qualities: ["Hot", "Focused", "Decisive"],
     bestForLabels: ["Deep work", "Analysis", "Problem solving", "Important decisions"],
-    bestForCategories: ["analytical"],
   },
   {
     id: "vata-afternoon",
@@ -58,7 +53,6 @@ export const DOSHA_ZONES: DoshaZone[] = [
     tagline: "Creative & communicative",
     qualities: ["Mobile", "Expansive", "Airy"],
     bestForLabels: ["Brainstorming", "Meetings", "Creative work", "Communication"],
-    bestForCategories: ["creative"],
   },
   {
     id: "kapha-evening",
@@ -68,7 +62,6 @@ export const DOSHA_ZONES: DoshaZone[] = [
     tagline: "Winding down",
     qualities: ["Heavy", "Slow", "Nourishing"],
     bestForLabels: ["Light social", "Dinner", "Gentle walks", "Family time"],
-    bestForCategories: ["physical", "rest"],
   },
   {
     id: "pitta-night",
@@ -78,45 +71,70 @@ export const DOSHA_ZONES: DoshaZone[] = [
     tagline: "Rest & restoration",
     qualities: ["Fiery", "Restorative", "Processing"],
     bestForLabels: ["Sleep", "Body repair", "Dream processing"],
-    bestForCategories: ["rest"],
   },
 ];
 
-const KEYWORDS: Record<Exclude<TaskCategory, "other">, string[]> = {
-  analytical: [
-    "code", "coding", "program", "debug", "study", "studies", "research", "analyze",
-    "analysis", "plan", "planning", "budget", "finance", "report", "review", "audit",
-    "calculate", "data", "writing", "read", "exam", "solve", "problem", "decision",
-    "strategy", "math", "spreadsheet", "document", "draft", "learn", "test", "fix",
-  ],
-  creative: [
-    "design", "brainstorm", "meeting", "call", "present", "presentation", "creative",
-    "art", "draw", "sketch", "idea", "ideate", "pitch", "blog", "social", "post",
-    "collaborate", "workshop", "interview", "chat", "video", "podcast", "write story",
-    "illustrate", "prototype",
-  ],
-  physical: [
-    "exercise", "workout", "gym", "yoga", "run", "running", "walk", "walking", "clean",
-    "cleaning", "cook", "cooking", "grocery", "shop", "shopping", "errand", "stretch",
-    "commute", "travel", "organize", "declutter", "laundry", "dishes",
-  ],
-  rest: [
-    "meditate", "meditation", "journal", "journaling", "pray", "prayer", "relax", "rest",
-    "sleep", "nap", "leisure", "hobby", "breathe", "breathing", "unwind", "break", "read",
-  ],
-};
+const KEYWORD_ZONES: Array<{ zoneId: string; keywords: string[] }> = [
+  {
+    zoneId: "vata-dawn",
+    keywords: [
+      "meditate", "meditation", "journal", "journaling", "pray", "prayer",
+      "breathe", "breathing", "spiritual", "silent", "contemplat",
+    ],
+  },
+  {
+    zoneId: "kapha-morning",
+    keywords: [
+      "exercise", "workout", "gym", "yoga", "run", "running", "walk", "walking",
+      "clean", "cleaning", "cook breakfast", "grocery", "shop", "shopping", "errand",
+      "stretch", "commute", "organize", "declutter", "laundry", "dishes",
+    ],
+  },
+  {
+    zoneId: "pitta-midday",
+    keywords: [
+      "code", "coding", "program", "debug", "study", "studies", "research", "analyze",
+      "analysis", "plan", "planning", "budget", "finance", "report", "review", "audit",
+      "calculate", "data", "exam", "solve", "problem", "decision", "strategy", "math",
+      "spreadsheet", "document", "draft", "learn", "test", "fix",
+    ],
+  },
+  {
+    zoneId: "vata-afternoon",
+    keywords: [
+      "design", "brainstorm", "meeting", "call", "present", "presentation", "creative",
+      "art", "draw", "sketch", "idea", "ideate", "pitch", "blog", "social", "post",
+      "collaborate", "workshop", "interview", "chat", "video", "podcast", "illustrate", "prototype",
+    ],
+  },
+  {
+    zoneId: "kapha-evening",
+    keywords: [
+      "dinner", "lunch", "eat", "meal", "cook dinner", "cook lunch", "family", "friend",
+      "social", "leisure", "hobby", "relax", "unwind", "rest", "nap", "watch", "movie",
+      "tv", "music", "walk evening", "light", "gentle",
+    ],
+  },
+  {
+    zoneId: "pitta-night",
+    keywords: [
+      "sleep", "bed", "bedtime", "wind down", "wind-down", "night routine", "skincare",
+      "read before", "light reading",
+    ],
+  },
+];
 
-export function classifyTask(text: string): TaskCategory {
+/** Returns a zone ID from keyword matching, or null if no keyword matched. */
+export function classifyByKeyword(text: string): string | null {
   const lower = text.toLowerCase();
-  for (const [category, keywords] of Object.entries(KEYWORDS) as [Exclude<TaskCategory, "other">, string[]][]) {
-    if (keywords.some((kw) => lower.includes(kw))) return category;
+  for (const { zoneId, keywords } of KEYWORD_ZONES) {
+    if (keywords.some((kw) => lower.includes(kw))) return zoneId;
   }
-  return "other";
+  return null;
 }
 
-export function getZoneForTask(category: TaskCategory): DoshaZone | null {
-  if (category === "other") return null;
-  return DOSHA_ZONES.find((z) => z.bestForCategories.includes(category)) ?? null;
+export function getZoneById(id: string): DoshaZone | undefined {
+  return DOSHA_ZONES.find((z) => z.id === id);
 }
 
 export function getCurrentZone(hour: number): DoshaZone {
@@ -127,14 +145,6 @@ export function getCurrentZone(hour: number): DoshaZone {
   });
   return match ?? DOSHA_ZONES[2];
 }
-
-export const CATEGORY_LABELS: Record<TaskCategory, string> = {
-  analytical: "Analytical",
-  creative: "Creative",
-  physical: "Physical",
-  rest: "Rest / Spiritual",
-  other: "Unclassified",
-};
 
 export const DOSHA_COLORS: Record<Dosha, {
   zone: string;
@@ -168,12 +178,4 @@ export const DOSHA_COLORS: Record<Dosha, {
     text: "text-teal-700 dark:text-teal-300",
     label: "bg-teal-500",
   },
-};
-
-export const CATEGORY_ZONE_COLORS: Record<TaskCategory, string> = {
-  analytical: "bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300",
-  creative: "bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300",
-  physical: "bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300",
-  rest: "bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300",
-  other: "bg-muted text-muted-foreground",
 };

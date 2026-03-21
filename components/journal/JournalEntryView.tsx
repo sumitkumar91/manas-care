@@ -67,7 +67,7 @@ export function JournalEntryView({ entry, userId }: Props) {
 
   return (
     <div className="max-w-2xl space-y-6">
-      <p className="text-xs text-muted-foreground">
+      <p className="text-xs text-muted-foreground" suppressHydrationWarning>
         {format(new Date(entry.created_at), "MMMM d, yyyy 'at' h:mm a")}
       </p>
 

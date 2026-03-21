@@ -40,7 +40,7 @@ export function JournalEntryCard({ entry }: Props) {
               {entry.is_pinned && <span className="mr-1.5">📌</span>}
               {entry.title || "Untitled"}
             </p>
-            <p className="text-xs text-muted-foreground mt-0.5">
+            <p className="text-xs text-muted-foreground mt-0.5" suppressHydrationWarning>
               {formatDistanceToNow(new Date(entry.created_at), { addSuffix: true })}
             </p>
           </div>

@@ -63,7 +63,11 @@ export function ProfileForm({ profile }: ProfileFormProps) {
       .eq("id", profile.id);
 
     if (error) {
-      toast.error(error.message);
+      if (error.code === "23505" || error.message.toLowerCase().includes("duplicate")) {
+        toast.error("That username is already taken.");
+      } else {
+        toast.error(error.message);
+      }
     } else {
       toast.success("Profile updated");
     }

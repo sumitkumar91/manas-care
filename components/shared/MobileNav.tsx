@@ -6,13 +6,9 @@ import {
   LayoutDashboard,
   Smile,
   BookOpen,
-  MessageCircle,
   User,
   Wind,
-  Music2,
-  Flower2,
-  Flame,
-  Sun,
+  Sparkles,
   LogOut,
   MoreHorizontal,
   X,
@@ -25,17 +21,13 @@ import { useRouter } from "next/navigation";
 const PRIMARY = [
   { href: "/dashboard", label: "Home",    icon: LayoutDashboard },
   { href: "/mood",      label: "Mood",    icon: Smile },
+  { href: "/vedic",     label: "Vedic",   icon: Sparkles },
   { href: "/journal",   label: "Journal", icon: BookOpen },
-  { href: "/chat",      label: "AI",      icon: MessageCircle },
 ];
 
 const MORE = [
-  { href: "/vent",        label: "Vent",        icon: Wind },
-  { href: "/music",       label: "Music",        icon: Music2 },
-  { href: "/meditate",    label: "Pranayama",    icon: Flower2 },
-  { href: "/trataka",     label: "Trataka",      icon: Flame },
-  { href: "/dinacharya",  label: "Dinacharya",   icon: Sun },
-  { href: "/profile",     label: "Profile",      icon: User },
+  { href: "/vent",    label: "Vent",    icon: Wind },
+  { href: "/profile", label: "Profile", icon: User },
 ];
 
 export function MobileNav() {

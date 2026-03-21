@@ -60,7 +60,7 @@ export function ChatListClient({ userId, initialSessions }: Props) {
             <Link key={s.id} href={`/chat/${s.id}`}>
               <div className="rounded-lg border p-4 hover:bg-accent/40 transition-colors cursor-pointer">
                 <p className="text-sm font-medium">{s.title ?? "Conversation"}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">
+                <p className="text-xs text-muted-foreground mt-0.5" suppressHydrationWarning>
                   {formatDistanceToNow(new Date(s.updated_at), { addSuffix: true })}
                 </p>
               </div>

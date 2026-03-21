@@ -4,16 +4,14 @@ import { useState, useEffect, useRef } from "react";
 import {
   DOSHA_ZONES,
   DOSHA_COLORS,
-  CATEGORY_LABELS,
-  CATEGORY_ZONE_COLORS,
-  classifyTask,
-  getZoneForTask,
+  classifyByKeyword,
+  getZoneById,
   getCurrentZone,
   type Task,
   type DoshaZone,
 } from "@/lib/constants/dinacharya";
 import { cn } from "@/lib/utils";
-import { Plus, X, CheckCircle2, Circle, ChevronDown, ChevronUp, Zap } from "lucide-react";
+import { Plus, X, CheckCircle2, Circle, ChevronDown, ChevronUp, Zap, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -24,6 +22,7 @@ export function DinacharyaClient() {
   const [input, setInput] = useState("");
   const [currentZone, setCurrentZone] = useState<DoshaZone | null>(null);
   const [infoOpen, setInfoOpen] = useState(false);
+  const [classifying, setClassifying] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -32,9 +31,7 @@ export function DinacharyaClient() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) setTasks(JSON.parse(stored));
-    } catch {
-      // ignore
-    }
+    } catch { /* ignore */ }
   }, []);
 
   function persist(updated: Task[]) {
@@ -42,18 +39,35 @@ export function DinacharyaClient() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   }
 
-  function addTask() {
+  async function addTask() {
     const text = input.trim();
     if (!text) return;
-    const task: Task = {
-      id: crypto.randomUUID(),
-      text,
-      category: classifyTask(text),
-      done: false,
-    };
-    persist([...tasks, task]);
     setInput("");
-    inputRef.current?.focus();
+
+    const zoneId = classifyByKeyword(text);
+
+    if (zoneId) {
+      persist([...tasks, { id: crypto.randomUUID(), text, zoneId, done: false }]);
+      inputRef.current?.focus();
+      return;
+    }
+
+    // Keyword miss — ask Gemini
+    setClassifying(true);
+    try {
+      const res = await fetch("/api/classify-task", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ task: text }),
+      });
+      const { zoneId: aiZoneId } = await res.json();
+      persist([...tasks, { id: crypto.randomUUID(), text, zoneId: aiZoneId ?? "pitta-midday", done: false }]);
+    } catch {
+      persist([...tasks, { id: crypto.randomUUID(), text, zoneId: "pitta-midday", done: false }]);
+    } finally {
+      setClassifying(false);
+      inputRef.current?.focus();
+    }
   }
 
   function toggleDone(id: string) {
@@ -63,8 +77,6 @@ export function DinacharyaClient() {
   function removeTask(id: string) {
     persist(tasks.filter((t) => t.id !== id));
   }
-
-  const unclassified = tasks.filter((t) => t.category === "other");
 
   return (
     <div className="space-y-6">
@@ -87,9 +99,9 @@ export function DinacharyaClient() {
         {infoOpen && (
           <div className="space-y-3 pt-1 border-t">
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Dinacharya is the Ayurvedic science of daily routine. The Vedic clock divides the 24-hour day into six 4-hour windows, each dominated by one of the three doshas - Vata, Pitta, and Kapha. Each dosha governs a different type of cognitive and physical energy.
+              Dinacharya is the Ayurvedic science of daily routine. The Vedic clock divides the 24-hour day into six windows, each dominated by one of the three doshas - Vata, Pitta, and Kapha. Each dosha governs a different type of cognitive and physical energy.
             </p>
-            <div className="grid grid-cols-3 gap-3 text-sm">
+            <div className="grid grid-cols-3 gap-3">
               {(["Vata", "Pitta", "Kapha"] as const).map((d) => (
                 <div key={d} className={cn("rounded-lg p-3 border", DOSHA_COLORS[d].zone)}>
                   <div className={cn("text-xs font-bold uppercase tracking-wide mb-1", DOSHA_COLORS[d].text)}>{d}</div>
@@ -101,9 +113,6 @@ export function DinacharyaClient() {
                 </div>
               ))}
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Add your tasks below. The app classifies them by type and places them in the optimal time window - analytical tasks in Pitta hours, creative work in Vata hours, physical tasks in Kapha hours.
-            </p>
           </div>
         )}
       </div>
@@ -111,7 +120,6 @@ export function DinacharyaClient() {
       <div className="flex flex-col lg:flex-row gap-6 items-start">
         {/* Left: Task input + list */}
         <div className="w-full lg:w-80 lg:shrink-0 space-y-4">
-          {/* Current zone indicator */}
           {currentZone && (
             <div className={cn("rounded-xl border p-3 flex items-center gap-3", DOSHA_COLORS[currentZone.dosha].activezone)}>
               <div className={cn("w-2 h-2 rounded-full shrink-0 animate-pulse", DOSHA_COLORS[currentZone.dosha].dot)} />
@@ -124,7 +132,6 @@ export function DinacharyaClient() {
             </div>
           )}
 
-          {/* Add task */}
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Add tasks</p>
             <div className="flex gap-2">
@@ -136,23 +143,28 @@ export function DinacharyaClient() {
                 placeholder="e.g. Study for exam, Go for a run…"
                 className="flex-1"
               />
-              <Button size="icon" onClick={addTask} disabled={!input.trim()}>
-                <Plus className="h-4 w-4" />
+              <Button size="icon" onClick={addTask} disabled={!input.trim() || classifying}>
+                {classifying ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
               </Button>
             </div>
-            <p className="text-xs text-muted-foreground">
-              Tasks are auto-classified by keywords.
-            </p>
           </div>
 
-          {/* Task list */}
           {tasks.length > 0 && (
             <div className="space-y-2">
               <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">All tasks</p>
               <div className="space-y-1.5">
-                {tasks.map((task) => (
-                  <TaskRow key={task.id} task={task} onToggle={toggleDone} onRemove={removeTask} />
-                ))}
+                {tasks.map((task) => {
+                  const zone = getZoneById(task.zoneId);
+                  return (
+                    <TaskRow
+                      key={task.id}
+                      task={task}
+                      dosha={zone?.dosha}
+                      onToggle={toggleDone}
+                      onRemove={removeTask}
+                    />
+                  );
+                })}
               </div>
             </div>
           )}
@@ -169,13 +181,9 @@ export function DinacharyaClient() {
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Your day, optimised</p>
           <div className="space-y-3">
             {DOSHA_ZONES.map((zone) => {
-              const zoneTasks = tasks.filter((t) => {
-                const z = getZoneForTask(t.category);
-                return z?.id === zone.id;
-              });
+              const zoneTasks = tasks.filter((t) => t.zoneId === zone.id);
               const isNow = currentZone?.id === zone.id;
               const colors = DOSHA_COLORS[zone.dosha];
-
               return (
                 <div
                   key={zone.id}
@@ -185,27 +193,21 @@ export function DinacharyaClient() {
                   )}
                 >
                   <div className="flex items-start gap-3">
-                    {/* Dosha label */}
                     <div className={cn("rounded-md px-2 py-0.5 text-xs font-bold uppercase tracking-wide shrink-0 text-white mt-0.5", colors.label)}>
                       {zone.dosha}
                     </div>
 
                     <div className="flex-1 min-w-0 space-y-2">
-                      <div className="flex items-center justify-between gap-2">
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-semibold">{zone.time}</span>
-                            {isNow && (
-                              <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide bg-foreground text-background px-1.5 py-0.5 rounded-full">
-                                <Zap className="h-2.5 w-2.5" /> Now
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-xs text-muted-foreground mt-0.5">{zone.tagline}</p>
-                        </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-semibold">{zone.time}</span>
+                        {isNow && (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide bg-foreground text-background px-1.5 py-0.5 rounded-full">
+                            <Zap className="h-2.5 w-2.5" /> Now
+                          </span>
+                        )}
                       </div>
+                      <p className="text-xs text-muted-foreground">{zone.tagline}</p>
 
-                      {/* Best for tags */}
                       <div className="flex flex-wrap gap-1.5">
                         {zone.bestForLabels.map((label) => (
                           <span key={label} className={cn("text-xs px-2 py-0.5 rounded-full", colors.badge)}>
@@ -214,7 +216,6 @@ export function DinacharyaClient() {
                         ))}
                       </div>
 
-                      {/* Tasks in this zone */}
                       {zoneTasks.length > 0 && (
                         <div className="space-y-1 pt-1 border-t border-current/10">
                           {zoneTasks.map((task) => (
@@ -227,19 +228,6 @@ export function DinacharyaClient() {
                 </div>
               );
             })}
-
-            {/* Unclassified */}
-            {unclassified.length > 0 && (
-              <div className="rounded-xl border border-dashed p-4 space-y-2">
-                <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Unscheduled</p>
-                <p className="text-xs text-muted-foreground">These tasks weren&apos;t matched to a specific zone. Try adding keywords like "code", "design", "run", or "meditate".</p>
-                <div className="space-y-1.5">
-                  {unclassified.map((task) => (
-                    <TaskRow key={task.id} task={task} onToggle={toggleDone} onRemove={removeTask} compact />
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -249,11 +237,13 @@ export function DinacharyaClient() {
 
 function TaskRow({
   task,
+  dosha,
   onToggle,
   onRemove,
   compact = false,
 }: {
   task: Task;
+  dosha?: DoshaZone["dosha"];
   onToggle: (id: string) => void;
   onRemove: (id: string) => void;
   compact?: boolean;
@@ -261,17 +251,14 @@ function TaskRow({
   return (
     <div className={cn("flex items-center gap-2 group", compact ? "py-0.5" : "py-1")}>
       <button onClick={() => onToggle(task.id)} className="shrink-0 text-muted-foreground hover:text-primary transition-colors">
-        {task.done
-          ? <CheckCircle2 className="h-4 w-4 text-primary" />
-          : <Circle className="h-4 w-4" />
-        }
+        {task.done ? <CheckCircle2 className="h-4 w-4 text-primary" /> : <Circle className="h-4 w-4" />}
       </button>
       <span className={cn("flex-1 text-sm min-w-0 truncate", task.done && "line-through text-muted-foreground")}>
         {task.text}
       </span>
-      {!compact && (
-        <span className={cn("text-[10px] px-2 py-0.5 rounded-full shrink-0 font-medium", CATEGORY_ZONE_COLORS[task.category])}>
-          {CATEGORY_LABELS[task.category]}
+      {!compact && dosha && (
+        <span className={cn("text-[10px] px-2 py-0.5 rounded-full shrink-0 font-medium", DOSHA_COLORS[dosha].badge)}>
+          {dosha}
         </span>
       )}
       <button
