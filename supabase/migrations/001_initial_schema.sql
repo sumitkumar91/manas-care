@@ -97,7 +97,7 @@ CREATE POLICY "Users can delete own mood logs" ON public.mood_logs FOR DELETE US
 CREATE TABLE public.journal_entries (
   id                 UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id            UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
-  entry_type         TEXT NOT NULL CHECK (entry_type IN ('free', 'cbt', 'gratitude')),
+  entry_type         TEXT NOT NULL CHECK (entry_type IN ('free', 'cbt', 'gratitude', 'vent')),
   title              TEXT,
   content_encrypted  TEXT NOT NULL,
   content_iv         TEXT NOT NULL,

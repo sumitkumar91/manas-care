@@ -7,12 +7,14 @@ const TYPE_LABELS: Record<string, string> = {
   free: "Free write",
   cbt: "CBT exercise",
   gratitude: "Gratitude",
+  vent: "Vent",
 };
 
 const TYPE_COLORS: Record<string, string> = {
   free: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
   cbt: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
   gratitude: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+  vent: "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400",
 };
 
 interface Props {

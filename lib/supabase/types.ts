@@ -113,7 +113,7 @@ export interface Database {
         Row: {
           id: string;
           user_id: string;
-          entry_type: "free" | "cbt" | "gratitude";
+          entry_type: "free" | "cbt" | "gratitude" | "vent";
           title: string | null;
           content_encrypted: string;
           content_iv: string;
@@ -126,7 +126,7 @@ export interface Database {
         Insert: {
           id?: string;
           user_id: string;
-          entry_type: "free" | "cbt" | "gratitude";
+          entry_type: "free" | "cbt" | "gratitude" | "vent";
           title?: string | null;
           content_encrypted: string;
           content_iv: string;
