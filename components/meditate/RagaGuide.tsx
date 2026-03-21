@@ -55,7 +55,7 @@ export function RagaGuide() {
       </div>
       <p className="text-xs text-muted-foreground pt-1">
         Tip: Use headphones, dim the lights, and let the music guide your breath.
-        You don&apos;t need to &quot;do&quot; anything — just listen.
+        You don&apos;t need to &quot;do&quot; anything - just listen.
       </p>
     </div>
   );

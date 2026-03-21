@@ -9,7 +9,7 @@ const TYPES = [
   {
     id: "free" as const,
     label: "Free write",
-    description: "Write freely — no structure, no rules.",
+    description: "Write freely - no structure, no rules.",
     icon: "✍️",
   },
   {

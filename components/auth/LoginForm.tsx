@@ -32,7 +32,7 @@ export function LoginForm() {
       setError(error.message);
       setLoading(false);
     } else {
-      window.location.href = "/onboarding";
+      window.location.href = "/dashboard";
     }
   }
 

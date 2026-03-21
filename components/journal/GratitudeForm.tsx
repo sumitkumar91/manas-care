@@ -24,7 +24,7 @@ export function GratitudeForm({ userId }: { userId: string }) {
       const supabase = createClient();
       const content = JSON.stringify({ entries, reflection });
       const { ciphertext, iv } = await encryptJournal(content, userId);
-      const title = `Gratitude — ${new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+      const title = `Gratitude - ${new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
 
       const { error } = await supabase.from("journal_entries").insert({
         user_id: userId, entry_type: "gratitude", title, content_encrypted: ciphertext, content_iv: iv,

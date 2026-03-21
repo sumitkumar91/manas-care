@@ -70,7 +70,7 @@ export function PrivacySettingsForm({ settings }: PrivacySettingsFormProps) {
       <div className="space-y-3">
         <h3 className="font-medium text-sm">Your data</h3>
         <p className="text-xs text-muted-foreground">
-          Journal entries are encrypted on your device before being stored — we cannot read them.
+          Journal entries are encrypted on your device before being stored - we cannot read them.
           Mood logs and chat messages are stored securely and only accessible to you.
         </p>
       </div>

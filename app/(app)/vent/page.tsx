@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { VentEditor } from "@/components/vent/VentEditor";
 
-export const metadata = { title: "Vent — Manas Care" };
+export const metadata = { title: "Vent - Manas Care" };
 
 export default async function VentPage() {
   const supabase = await createClient();

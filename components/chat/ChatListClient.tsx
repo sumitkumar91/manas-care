@@ -51,7 +51,7 @@ export function ChatListClient({ userId, initialSessions }: Props) {
         <div className="rounded-lg border border-dashed p-10 text-center">
           <p className="text-sm text-muted-foreground">No conversations yet.</p>
           <p className="text-xs text-muted-foreground mt-1">
-            Start a conversation with Manas Care AI — it's confidential and non-judgmental.
+            Start a conversation with Manas Care AI - it's confidential and non-judgmental.
           </p>
         </div>
       ) : (

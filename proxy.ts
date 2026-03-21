@@ -34,6 +34,9 @@ export async function proxy(request: NextRequest) {
 
   // Public routes that don't need auth
   const isPublicRoute =
+    pathname === "/" ||
+    pathname === "/sitemap.xml" ||
+    pathname === "/robots.txt" ||
     pathname.startsWith("/login") ||
     pathname.startsWith("/signup") ||
     pathname.startsWith("/auth/");
@@ -50,36 +53,6 @@ export async function proxy(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);
-  }
-
-  // Check onboarding status for authenticated users
-  if (user && !isPublicRoute) {
-    const isOnboardingRoute = pathname.startsWith("/onboarding");
-
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("onboarding_done")
-      .eq("id", user.id)
-      .single();
-
-    const onboardingDone = profile?.onboarding_done ?? false;
-
-    // Allow access to convert page even without completed onboarding
-    const isConvertRoute = pathname.startsWith("/convert");
-
-    // Force incomplete onboarding
-    if (!onboardingDone && !isOnboardingRoute && !isConvertRoute) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/onboarding";
-      return NextResponse.redirect(url);
-    }
-
-    // Skip onboarding if already done
-    if (onboardingDone && isOnboardingRoute) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/dashboard";
-      return NextResponse.redirect(url);
-    }
   }
 
   return supabaseResponse;

@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { ChatListClient } from "@/components/chat/ChatListClient";
 
-export const metadata = { title: "Chat — Manas Care" };
+export const metadata = { title: "Chat - Manas Care" };
 
 export default async function ChatPage() {
   const supabase = await createClient();

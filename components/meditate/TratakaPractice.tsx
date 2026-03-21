@@ -118,7 +118,7 @@ export function TratakaPractice() {
 
       <div className="rounded-2xl border p-5 space-y-4">
         <div>
-          <h3 className="font-semibold">Trataka — Yogic Visual Focus</h3>
+          <h3 className="font-semibold">Trataka - Yogic Visual Focus</h3>
           <p className="text-sm text-muted-foreground mt-1">
             An ancient yogic practice: gaze softly at a candle flame without blinking. When the eyes stop darting, the mind follows. Builds concentration, reduces anxiety, improves sleep.
           </p>
@@ -148,7 +148,7 @@ export function TratakaPractice() {
           <ul className="space-y-0.5 text-xs">
             <li>· Sit comfortably with the candle at eye level, ~2 feet away</li>
             <li>· Dim the lights or do this in a dark room</li>
-            <li>· Try not to blink — if you must, blink gently</li>
+            <li>· Try not to blink - if you must, blink gently</li>
             <li>· When thoughts arise, return your gaze to the flame</li>
           </ul>
         </div>

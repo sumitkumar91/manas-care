@@ -51,7 +51,7 @@ export function GunaSelector({ value, onChange }: Props) {
         })}
       </div>
       <p className="text-xs text-muted-foreground">
-        Based on Ayurvedic philosophy — select what resonates, or skip.
+        Based on Ayurvedic philosophy - select what resonates, or skip.
       </p>
     </div>
   );

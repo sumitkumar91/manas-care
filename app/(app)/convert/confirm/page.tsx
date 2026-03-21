@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 
-export const metadata = { title: "Check your email — Manas Care" };
+export const metadata = { title: "Check your email - Manas Care" };
 
 export default function ConvertConfirmPage() {
   return (
@@ -10,7 +10,7 @@ export default function ConvertConfirmPage() {
           <p className="text-3xl">✉️</p>
           <p className="font-semibold text-lg">Check your email</p>
           <p className="text-muted-foreground text-sm">
-            We sent a confirmation link. Click it to activate your account —
+            We sent a confirmation link. Click it to activate your account -
             all your data is already saved and will be there when you log back in.
           </p>
         </CardContent>

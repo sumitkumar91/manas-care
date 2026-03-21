@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/shared/PageHeader";
 import { MeditateClient } from "@/components/meditate/MeditateClient";
 
-export const metadata = { title: "Pranayama & Trataka — Manas Care" };
+export const metadata = { title: "Pranayama & Trataka - Manas Care" };
 
 export default function MeditatePage() {
   return (

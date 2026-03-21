@@ -61,7 +61,7 @@ export function FreeJournalEditor({ userId, existing }: FreeJournalEditorProps) 
         <Label htmlFor="content">Your thoughts</Label>
         <Textarea
           id="content"
-          placeholder="Write freely — this is encrypted and only you can read it…"
+          placeholder="Write freely - this is encrypted and only you can read it…"
           rows={12}
           value={content}
           onChange={(e) => setContent(e.target.value)}

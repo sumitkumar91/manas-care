@@ -109,7 +109,7 @@ export function MoodLogForm({ userId, existingLog }: MoodLogFormProps) {
       <div className="space-y-3">
         <div className="flex justify-between items-center">
           <Label className="text-base font-medium">Intensity</Label>
-          <span className="text-sm font-semibold text-primary">{score}/10 — {scoreLabel}</span>
+          <span className="text-sm font-semibold text-primary">{score}/10 - {scoreLabel}</span>
         </div>
         <Slider
           min={1} max={10} step={1}

@@ -48,8 +48,8 @@ export function EmotionInsightCard({ logs }: EmotionInsightCardProps) {
     if (Math.abs(diff) >= 1) {
       insights.push(
         diff > 0
-          ? `Your mood has been **improving** lately — up ${diff.toFixed(1)} points recently.`
-          : `Your mood has been **dipping** lately — down ${Math.abs(diff).toFixed(1)} points recently.`
+          ? `Your mood has been **improving** lately - up ${diff.toFixed(1)} points recently.`
+          : `Your mood has been **dipping** lately - down ${Math.abs(diff).toFixed(1)} points recently.`
       );
     }
   }

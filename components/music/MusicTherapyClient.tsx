@@ -86,7 +86,7 @@ export function MusicTherapyClient() {
       {tab === "time" && (
         <div className="space-y-3">
           <p className="text-sm text-muted-foreground">
-            Based on the traditional <span className="font-medium text-foreground">Raag-Prahar</span> system — each raga is prescribed for a specific time of day to align with your natural energy.
+            Based on the traditional <span className="font-medium text-foreground">Raag-Prahar</span> system - each raga is prescribed for a specific time of day to align with your natural energy.
           </p>
           <RagaCard raga={timeRaga} label={`Recommended for ${formatHour(hour)}`} />
         </div>
@@ -95,7 +95,7 @@ export function MusicTherapyClient() {
       {tab === "feel" && (
         <div className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Describe how you feel or pick a state below — our AI will recommend a raga using <span className="font-medium text-foreground">Raga Chikitsa</span> (raga therapy).
+            Describe how you feel or pick a state below - our AI will recommend a raga using <span className="font-medium text-foreground">Raga Chikitsa</span> (raga therapy).
           </p>
 
           {/* Preset emotions */}

@@ -44,7 +44,7 @@ export function VentEditor({ userId }: Props) {
         setDetectedGuna(data.guna ?? null);
       }
     } catch {
-      // AI response is optional — don't block on failure
+      // AI response is optional - don't block on failure
     }
 
     setStage("response");
@@ -56,7 +56,7 @@ export function VentEditor({ userId }: Props) {
     try {
       const supabase = createClient();
       const { ciphertext, iv } = await encryptJournal(content, userId);
-      const title = `Vent — ${new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+      const title = `Vent - ${new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
       const { error } = await supabase.from("journal_entries").insert({
         user_id: userId,
         entry_type: "vent",
@@ -138,7 +138,7 @@ export function VentEditor({ userId }: Props) {
             </Button>
           </div>
           <p className="text-xs text-muted-foreground">
-            "Release it" deletes your vent permanently — nothing is stored.
+            "Release it" deletes your vent permanently - nothing is stored.
           </p>
         </div>
       </div>
@@ -148,7 +148,7 @@ export function VentEditor({ userId }: Props) {
   return (
     <div className="max-w-2xl space-y-4">
       <div className="rounded-lg border bg-accent/20 p-3 text-sm text-muted-foreground">
-        This is your space. No structure, no prompts — just get it out.
+        This is your space. No structure, no prompts - just get it out.
         You can choose to save it or release it when you&apos;re done.
       </div>
       <Textarea

@@ -4,7 +4,7 @@ import { buttonVariants } from "@/lib/button-variants";
 import { JournalEntryCard } from "@/components/journal/JournalEntryCard";
 import Link from "next/link";
 
-export const metadata = { title: "Journal — Manas Care" };
+export const metadata = { title: "Journal - Manas Care" };
 
 export default async function JournalPage() {
   const supabase = await createClient();
@@ -34,7 +34,7 @@ export default async function JournalPage() {
           <div className="rounded-lg border border-dashed p-10 text-center">
             <p className="text-sm text-muted-foreground">No entries yet.</p>
             <p className="text-xs text-muted-foreground mt-1">
-              Your journal is encrypted — only you can read it.
+              Your journal is encrypted - only you can read it.
             </p>
             <Link
               href="/journal/new"
