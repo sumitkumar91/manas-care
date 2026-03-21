@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { BreathingExercisePanel } from "./BreathingExercise";
 import { MeditationTimer } from "./MeditationTimer";
-import { RagaGuide } from "./RagaGuide";
+import { TratakaPractice } from "./TratakaPractice";
 
-type Tab = "breathing" | "timer" | "music";
+type Tab = "breathing" | "timer" | "trataka";
 
 const TABS: { id: Tab; label: string; icon: string }[] = [
-  { id: "breathing", label: "Breathing", icon: "🌬️" },
-  { id: "timer", label: "Meditation", icon: "🧘" },
-  { id: "music", label: "Ragas", icon: "🎵" },
+  { id: "breathing", label: "Pranayama", icon: "🌬️" },
+  { id: "timer", label: "Timer", icon: "🧘" },
+  { id: "trataka", label: "Trataka", icon: "🕯️" },
 ];
 
 export function MeditateClient() {
@@ -39,7 +39,7 @@ export function MeditateClient() {
       {/* Tab content */}
       {tab === "breathing" && <BreathingExercisePanel />}
       {tab === "timer" && <MeditationTimer />}
-      {tab === "music" && <RagaGuide />}
+      {tab === "trataka" && <TratakaPractice />}
     </div>
   );
 }

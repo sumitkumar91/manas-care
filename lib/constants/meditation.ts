@@ -55,6 +55,7 @@ export const BREATHING_EXERCISES: BreathingExercise[] = [
 export interface Raga {
   name: string;
   time: string;
+  hourRange: [number, number]; // 24h, e.g. [6, 9]
   mood: string;
   benefits: string[];
   searchQuery: string;
@@ -63,61 +64,99 @@ export interface Raga {
 export const RAGAS: Raga[] = [
   {
     name: "Raag Bhairav",
-    time: "Early morning",
+    time: "Early morning (5–8 AM)",
+    hourRange: [5, 8],
     mood: "Serene & devotional",
     benefits: ["Reduces anxiety", "Brings mental clarity", "Morning grounding"],
-    searchQuery: "Raag Bhairav instrumental meditation",
+    searchQuery: "Raag Bhairav instrumental meditation peaceful",
   },
   {
-    name: "Raag Yaman",
-    time: "Evening (6–9 PM)",
-    mood: "Uplifting & expansive",
-    benefits: ["Lifts mood", "Relieves stress", "Opens the heart"],
-    searchQuery: "Raag Yaman sitar meditation",
-  },
-  {
-    name: "Raag Darbari Kanada",
-    time: "Late night",
-    mood: "Deeply meditative & profound",
-    benefits: ["Induces deep relaxation", "Helps with insomnia", "Quiets mental chatter"],
-    searchQuery: "Raag Darbari Kanada late night meditation",
-  },
-  {
-    name: "Raag Bhoopali",
-    time: "Anytime",
-    mood: "Peaceful & content",
-    benefits: ["Gentle stress relief", "Suitable for beginners", "Uplifts without excitement"],
-    searchQuery: "Raag Bhoopali flute meditation",
-  },
-  {
-    name: "Raag Malkauns",
-    time: "Midnight",
-    mood: "Introspective & mysterious",
-    benefits: ["Deep meditation", "Emotional healing", "Inner stillness"],
-    searchQuery: "Raag Malkauns meditation deep",
-  },
-  {
-    name: "Raag Bhimpalasi",
-    time: "Afternoon (3–5 PM)",
-    mood: "Tender & longing",
-    benefits: ["Soothes sadness", "Emotional release", "Gentle mood lift"],
-    searchQuery: "Raag Bhimpalasi vocal meditation",
+    name: "Raag Lalit",
+    time: "Pre-dawn (3–6 AM)",
+    hourRange: [3, 6],
+    mood: "Yearning & contemplative",
+    benefits: ["Deep stillness", "Spiritual awakening", "Inner peace"],
+    searchQuery: "Raag Lalit pre dawn meditation sitar",
   },
   {
     name: "Raag Todi",
-    time: "Late morning",
+    time: "Late morning (8–11 AM)",
+    hourRange: [8, 11],
     mood: "Reflective & melancholic",
     benefits: ["Deep introspection", "Processes difficult emotions", "Cathartic release"],
     searchQuery: "Raag Todi morning meditation sitar",
   },
   {
+    name: "Raag Bhimpalasi",
+    time: "Afternoon (2–5 PM)",
+    hourRange: [14, 17],
+    mood: "Tender & longing",
+    benefits: ["Soothes sadness", "Emotional release", "Gentle mood lift"],
+    searchQuery: "Raag Bhimpalasi afternoon vocal meditation",
+  },
+  {
+    name: "Raag Puriya Dhanashri",
+    time: "Twilight (5–7 PM)",
+    hourRange: [17, 19],
+    mood: "Rich & bittersweet",
+    benefits: ["Transitions the mind", "Releases day's stress", "Opens creativity"],
+    searchQuery: "Raag Puriya Dhanashri evening sitar meditation",
+  },
+  {
+    name: "Raag Yaman",
+    time: "Evening (6–9 PM)",
+    hourRange: [18, 21],
+    mood: "Uplifting & expansive",
+    benefits: ["Lifts mood", "Relieves stress", "Opens the heart"],
+    searchQuery: "Raag Yaman sitar meditation evening",
+  },
+  {
+    name: "Raag Bhoopali",
+    time: "Evening (7–10 PM)",
+    hourRange: [19, 22],
+    mood: "Peaceful & content",
+    benefits: ["Gentle stress relief", "Suitable for beginners", "Uplifts without excitement"],
+    searchQuery: "Raag Bhoopali flute meditation peaceful",
+  },
+  {
     name: "Raag Kafi",
-    time: "Night",
+    time: "Night (9 PM–12 AM)",
+    hourRange: [21, 24],
     mood: "Playful yet relaxing",
     benefits: ["Light relaxation", "Creative flow", "Gentle unwinding"],
-    searchQuery: "Raag Kafi flute relaxing",
+    searchQuery: "Raag Kafi flute relaxing night",
+  },
+  {
+    name: "Raag Darbari Kanada",
+    time: "Late night (10 PM–2 AM)",
+    hourRange: [22, 26],
+    mood: "Deeply meditative & profound",
+    benefits: ["Induces deep relaxation", "Helps with insomnia", "Quiets mental chatter"],
+    searchQuery: "Raag Darbari Kanada late night meditation deep",
+  },
+  {
+    name: "Raag Malkauns",
+    time: "Midnight (12–3 AM)",
+    hourRange: [24, 27],
+    mood: "Introspective & mysterious",
+    benefits: ["Deep meditation", "Emotional healing", "Inner stillness"],
+    searchQuery: "Raag Malkauns midnight meditation deep",
   },
 ];
+
+/** Returns the most appropriate raga for the current hour */
+export function getRagaForTime(hour: number): Raga {
+  // Normalize hour for past-midnight (e.g. 1 AM = 25)
+  const scored = RAGAS.map((r) => {
+    const [start, end] = r.hourRange;
+    const h = hour < 3 ? hour + 24 : hour;
+    const inRange = h >= start && h < end;
+    return { raga: r, score: inRange ? 1 : 0 };
+  });
+  const match = scored.find((s) => s.score === 1);
+  // Fallback: Bhoopali works anytime
+  return match?.raga ?? RAGAS.find((r) => r.name === "Raag Bhoopali")!;
+}
 
 export const TIMER_DURATIONS = [
   { label: "5 min", seconds: 5 * 60 },
