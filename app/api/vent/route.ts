@@ -15,13 +15,7 @@ Rules:
 - Keep your response to 2-4 sentences
 - Be human, warm, and genuine - not clinical
 
-If the user expresses suicidal ideation or intent to self-harm, add [CRISIS_DETECTED] at the very end of your response.
-
-After your empathy response, on a new line add one of these markers based on the dominant energy in the text:
-[GUNA:sattva] - if the person seems calm, clear, or balanced despite challenges
-[GUNA:rajas] - if the person seems anxious, restless, overwhelmed, or racing thoughts
-[GUNA:tamas] - if the person seems low, heavy, withdrawn, numb, or unmotivated
-Only add one guna marker. If unclear, use [GUNA:rajas].`;
+If the user expresses suicidal ideation or intent to self-harm, add [CRISIS_DETECTED] at the very end of your response.`;
 
 export async function POST(req: NextRequest) {
   try {
@@ -46,14 +40,9 @@ export async function POST(req: NextRequest) {
     const responseText = result.response.text();
 
     const isCrisis = responseText.includes("[CRISIS_DETECTED]");
-    const gunaMatch = responseText.match(/\[GUNA:(sattva|rajas|tamas)\]/);
-    const guna = gunaMatch ? gunaMatch[1] : null;
-    const clean = responseText
-      .replace("[CRISIS_DETECTED]", "")
-      .replace(/\[GUNA:(sattva|rajas|tamas)\]/, "")
-      .trim();
+    const clean = responseText.replace("[CRISIS_DETECTED]", "").trim();
 
-    return NextResponse.json({ message: clean, crisis: isCrisis, guna });
+    return NextResponse.json({ message: clean, crisis: isCrisis });
   } catch (e) {
     console.error("[vent/route]", e);
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
