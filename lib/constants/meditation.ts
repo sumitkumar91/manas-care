@@ -90,6 +90,9 @@ export const RAGAS: Raga[] = [
   // 1 PM - 4 PM
   { name: "Bhimpalas",     time: "1 PM - 4 PM",  hourRange: [13, 16], mood: "Sweet, playful, romance, devotion",           searchQuery: "Raag Bhimpalasi afternoon vocal meditation" },
 
+  // 4 PM - 7 PM
+  { name: "Champak",       time: "4 PM - 7 PM",  hourRange: [16, 19], mood: "Romantic, peaceful, gentle loving, devotion", searchQuery: "Raag Champak evening meditation classical" },
+
   // 7 PM - 10 PM
   { name: "Bhoopali",      time: "7 PM - 10 PM", hourRange: [19, 22], mood: "Peace, joy, romance, devotion",               searchQuery: "Raag Bhoopali flute meditation peaceful evening" },
   { name: "Chhayanat",     time: "7 PM - 10 PM", hourRange: [19, 22], mood: "Adornment, separation in love",               searchQuery: "Raag Chhayanat Kalyan evening meditation classical" },
