@@ -1,62 +1,27 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Separator } from "@/components/ui/separator";
 
 export function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
-  const [step, setStep] = useState<"email" | "otp">("email");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const supabase = createClient();
 
-  async function sendOtp() {
-    if (!email.trim()) return;
+  async function signInWithGoogle() {
     setLoading(true);
     setError(null);
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { shouldCreateUser: false },
-    });
-    if (error) {
-      setError(error.message);
-    } else {
-      setStep("otp");
-    }
-    setLoading(false);
-  }
-
-  async function verifyOtp() {
-    if (!otp.trim()) return;
-    setLoading(true);
-    setError(null);
-    const { error } = await supabase.auth.verifyOtp({
-      email,
-      token: otp,
-      type: "email",
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${location.origin}/callback` },
     });
     if (error) {
       setError(error.message);
       setLoading(false);
-    } else {
-      window.location.href = "/dashboard";
     }
-  }
-
-  async function signInWithGoogle() {
-    setLoading(true);
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: `${location.origin}/callback` },
-    });
   }
 
   async function continueAsGuest() {
@@ -74,72 +39,18 @@ export function LoginForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl">Welcome back</CardTitle>
+        <CardTitle className="text-xl">Welcome to Manas Care</CardTitle>
+        <p className="text-sm text-muted-foreground mt-1">
+          Sign in to continue your wellness journey.
+        </p>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-3">
         {error && (
           <Alert variant="destructive">
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
-
-        {step === "email" ? (
-          <div className="space-y-4">
-            <div className="space-y-1.5">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                autoComplete="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && sendOtp()}
-              />
-            </div>
-            <Button className="w-full" onClick={sendOtp} disabled={loading || !email.trim()}>
-              {loading ? "Sending…" : "Send code"}
-            </Button>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              We sent a 6-digit code to <span className="font-medium text-foreground">{email}</span>.
-            </p>
-            <div className="space-y-1.5">
-              <Label htmlFor="otp">Code</Label>
-              <Input
-                id="otp"
-                type="text"
-                inputMode="numeric"
-                placeholder="123456"
-                maxLength={6}
-                value={otp}
-                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                onKeyDown={(e) => e.key === "Enter" && verifyOtp()}
-                autoFocus
-              />
-            </div>
-            <Button className="w-full" onClick={verifyOtp} disabled={loading || otp.length < 6}>
-              {loading ? "Verifying…" : "Sign in"}
-            </Button>
-            <button
-              type="button"
-              className="text-xs text-muted-foreground hover:underline w-full text-center"
-              onClick={() => { setStep("email"); setOtp(""); setError(null); }}
-            >
-              Use a different email
-            </button>
-          </div>
-        )}
-
-        <div className="relative">
-          <Separator />
-          <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
-            or
-          </span>
-        </div>
-        <Button variant="outline" className="w-full" onClick={signInWithGoogle} disabled={loading} type="button">
+        <Button className="w-full" onClick={signInWithGoogle} disabled={loading} type="button">
           <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" aria-hidden>
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -148,14 +59,10 @@ export function LoginForm() {
           </svg>
           Continue with Google
         </Button>
-        <Button variant="ghost" className="w-full text-muted-foreground" onClick={continueAsGuest} disabled={loading} type="button">
+        <Button variant="outline" className="w-full" onClick={continueAsGuest} disabled={loading} type="button">
           Try without an account
         </Button>
       </CardContent>
-      <CardFooter className="justify-center text-sm text-muted-foreground">
-        Don&apos;t have an account?&nbsp;
-        <Link href="/signup" className="text-primary hover:underline font-medium">Sign up</Link>
-      </CardFooter>
     </Card>
   );
 }

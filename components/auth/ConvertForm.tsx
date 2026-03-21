@@ -3,58 +3,25 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export function ConvertForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
-  const [step, setStep] = useState<"email" | "otp">("email");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const supabase = createClient();
 
-  async function sendOtp() {
-    if (!email.trim()) return;
+  async function linkWithGoogle() {
     setLoading(true);
     setError(null);
-    // Link email to the existing anonymous session
-    const { error } = await supabase.auth.updateUser({
-      email,
-      data: name.trim() ? { display_name: name.trim() } : undefined,
+    const { error } = await supabase.auth.linkIdentity({
+      provider: "google",
+      options: { redirectTo: `${location.origin}/callback` },
     });
     if (error) {
       setError(error.message);
       setLoading(false);
-    } else {
-      setStep("otp");
     }
-  }
-
-  async function verifyOtp() {
-    if (!otp.trim()) return;
-    setLoading(true);
-    setError(null);
-    const { data, error } = await supabase.auth.verifyOtp({
-      email,
-      token: otp,
-      type: "email_change",
-    });
-    if (error) {
-      setError(error.message);
-      setLoading(false);
-      return;
-    }
-    if (name.trim() && data.user) {
-      await supabase
-        .from("profiles")
-        .update({ display_name: name.trim() })
-        .eq("id", data.user.id);
-    }
-    window.location.href = "/dashboard";
   }
 
   return (
@@ -62,75 +29,24 @@ export function ConvertForm() {
       <CardHeader>
         <CardTitle className="text-xl">Save your progress</CardTitle>
         <p className="text-sm text-muted-foreground mt-1">
-          All your mood logs, journal entries, and conversations will be kept.
+          Link a Google account to keep all your mood logs, journal entries, and conversations permanently.
         </p>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-3">
         {error && (
           <Alert variant="destructive">
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
-
-        {step === "email" ? (
-          <div className="space-y-4">
-            <div className="space-y-1.5">
-              <Label htmlFor="name">Your name <span className="text-muted-foreground">(optional)</span></Label>
-              <Input
-                id="name"
-                placeholder="Alex"
-                autoComplete="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                autoComplete="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && sendOtp()}
-              />
-            </div>
-            <Button className="w-full" onClick={sendOtp} disabled={loading || !email.trim()}>
-              {loading ? "Sending…" : "Send verification code"}
-            </Button>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              We sent a 6-digit code to <span className="font-medium text-foreground">{email}</span>.
-            </p>
-            <div className="space-y-1.5">
-              <Label htmlFor="otp">Code</Label>
-              <Input
-                id="otp"
-                type="text"
-                inputMode="numeric"
-                placeholder="123456"
-                maxLength={6}
-                value={otp}
-                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                onKeyDown={(e) => e.key === "Enter" && verifyOtp()}
-                autoFocus
-              />
-            </div>
-            <Button className="w-full" onClick={verifyOtp} disabled={loading || otp.length < 6}>
-              {loading ? "Verifying…" : "Create account & save data"}
-            </Button>
-            <button
-              type="button"
-              className="text-xs text-muted-foreground hover:underline w-full text-center"
-              onClick={() => { setStep("email"); setOtp(""); setError(null); }}
-            >
-              Use a different email
-            </button>
-          </div>
-        )}
+        <Button className="w-full" onClick={linkWithGoogle} disabled={loading} type="button">
+          <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" aria-hidden>
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Link Google account
+        </Button>
       </CardContent>
     </Card>
   );
