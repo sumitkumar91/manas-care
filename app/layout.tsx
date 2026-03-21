@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import Script from "next/script";
 import "./globals.css";
+
+const GA_ID = "G-GGNTLHX6FQ";
 
 const nunito = Nunito({
   variable: "--font-sans",
@@ -32,6 +35,13 @@ export default function RootLayout({
       className={`${nunito.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_ID}');
+        `}</Script>
         {children}
         <Toaster richColors position="top-right" />
       </body>
