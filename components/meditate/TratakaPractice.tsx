@@ -116,22 +116,76 @@ export function TratakaPractice() {
         </div>
       )}
 
-      <div className="rounded-2xl border p-5 space-y-4">
-        <div>
-          <h3 className="font-semibold">Trataka - Yogic Visual Focus</h3>
-          <p className="text-sm text-muted-foreground mt-1">
-            An ancient yogic practice: gaze softly at a candle flame without blinking. When the eyes stop darting, the mind follows. Builds concentration, reduces anxiety, improves sleep.
+      <div className="rounded-2xl border p-8 space-y-8">
+
+        <div className="space-y-1">
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary/70">Ancient Yogic Practice</p>
+          <h3 className="text-3xl font-bold">Trataka</h3>
+          <p className="text-muted-foreground">Sanskrit: त्राटक · "to gaze steadily"</p>
+        </div>
+
+        <div className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary/70">What is it?</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Trataka is the practice of fixing your eyes on a single point — traditionally a candle flame — without blinking or letting the gaze wander. When the eyes stop moving, the mind follows into stillness.
           </p>
         </div>
 
         <div className="space-y-2">
-          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Duration</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary/70">History</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            One of the six Shatkarmas from the Hatha Yoga Pradipika, a 15th-century Sanskrit text. Practised for thousands of years in yogic, Tantric, and Sufi traditions to awaken the Ajna chakra and sharpen the mind.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary/70">Benefits</p>
+            <ul className="space-y-2">
+              {[
+                "Builds single-pointed concentration (dharana)",
+                "Reduces anxiety by stopping the eyes from darting",
+                "Strengthens eye muscles and improves eyesight",
+                "Calms mental chatter and overactive thinking",
+                "Improves memory and cognitive clarity",
+                "Aids in falling asleep when practised before bed",
+                "Awakens intuition and inner awareness",
+              ].map((b) => (
+                <li key={b} className="flex items-start gap-2 text-sm text-muted-foreground">
+                  <span className="text-primary shrink-0 mt-0.5">·</span>
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary/70">Before you begin</p>
+            <ul className="space-y-2">
+              {[
+                "Sit with the candle at eye level, about 2 feet away",
+                "Dim the lights or do this in a dark room",
+                "Try not to blink — if you must, blink gently",
+                "When thoughts arise, return your gaze to the flame",
+                "After the session, close your eyes and visualise the flame internally",
+              ].map((b) => (
+                <li key={b} className="flex items-start gap-2 text-sm text-muted-foreground">
+                  <span className="text-primary shrink-0 mt-0.5">·</span>
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary/70">Duration</p>
           <div className="flex gap-2">
             {DURATIONS.map((d) => (
               <button
                 key={d.label}
                 onClick={() => setSelectedDuration(d)}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium border transition-colors cursor-pointer ${
+                className={`flex-1 py-2.5 rounded-lg text-sm font-medium border transition-colors cursor-pointer ${
                   selectedDuration.label === d.label
                     ? "bg-primary text-primary-foreground border-primary"
                     : "hover:border-primary/50"
@@ -141,21 +195,10 @@ export function TratakaPractice() {
               </button>
             ))}
           </div>
+          <Button onClick={handleStart} className="w-full gap-2 h-11 text-base">
+            🕯️ Begin Trataka
+          </Button>
         </div>
-
-        <div className="text-sm text-muted-foreground space-y-1">
-          <p className="font-medium text-foreground text-xs uppercase tracking-wider">Before you begin</p>
-          <ul className="space-y-0.5 text-xs">
-            <li>· Sit comfortably with the candle at eye level, ~2 feet away</li>
-            <li>· Dim the lights or do this in a dark room</li>
-            <li>· Try not to blink - if you must, blink gently</li>
-            <li>· When thoughts arise, return your gaze to the flame</li>
-          </ul>
-        </div>
-
-        <Button onClick={handleStart} className="w-full gap-2">
-          🕯️ Begin Trataka
-        </Button>
       </div>
     </div>
   );

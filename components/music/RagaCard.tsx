@@ -44,9 +44,6 @@ export function RagaCard({ raga, label }: RagaCardProps) {
         <ExternalLink className="h-4 w-4" />
         Listen on YouTube
       </Button>
-      <p className="text-xs text-muted-foreground text-center">
-        Opens a curated search for {raga.name} on YouTube
-      </p>
     </div>
   );
 }

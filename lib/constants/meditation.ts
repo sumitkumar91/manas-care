@@ -59,6 +59,12 @@ export interface Raga {
   mood: string;
   benefits: string[];
   searchQuery: string;
+  storageKey: string; // filename in Supabase ragas bucket, e.g. "bhairav" → bhairav.mp3
+}
+
+export function getRagaAudioUrl(storageKey: string): string {
+  const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  return `${base}/storage/v1/object/public/ragas/${storageKey}.mp3`;
 }
 
 export const RAGAS: Raga[] = [
@@ -69,6 +75,7 @@ export const RAGAS: Raga[] = [
     mood: "Serene & devotional",
     benefits: ["Reduces anxiety", "Brings mental clarity", "Morning grounding"],
     searchQuery: "Raag Bhairav instrumental meditation peaceful",
+    storageKey: "bhairav",
   },
   {
     name: "Raag Lalit",
@@ -77,6 +84,7 @@ export const RAGAS: Raga[] = [
     mood: "Yearning & contemplative",
     benefits: ["Deep stillness", "Spiritual awakening", "Inner peace"],
     searchQuery: "Raag Lalit pre dawn meditation sitar",
+    storageKey: "lalit",
   },
   {
     name: "Raag Todi",
@@ -85,6 +93,7 @@ export const RAGAS: Raga[] = [
     mood: "Reflective & melancholic",
     benefits: ["Deep introspection", "Processes difficult emotions", "Cathartic release"],
     searchQuery: "Raag Todi morning meditation sitar",
+    storageKey: "todi",
   },
   {
     name: "Raag Bhimpalasi",
@@ -93,6 +102,7 @@ export const RAGAS: Raga[] = [
     mood: "Tender & longing",
     benefits: ["Soothes sadness", "Emotional release", "Gentle mood lift"],
     searchQuery: "Raag Bhimpalasi afternoon vocal meditation",
+    storageKey: "bhimpalasi",
   },
   {
     name: "Raag Puriya Dhanashri",
@@ -101,6 +111,7 @@ export const RAGAS: Raga[] = [
     mood: "Rich & bittersweet",
     benefits: ["Transitions the mind", "Releases day's stress", "Opens creativity"],
     searchQuery: "Raag Puriya Dhanashri evening sitar meditation",
+    storageKey: "puriya-dhanashri",
   },
   {
     name: "Raag Yaman",
@@ -109,6 +120,7 @@ export const RAGAS: Raga[] = [
     mood: "Uplifting & expansive",
     benefits: ["Lifts mood", "Relieves stress", "Opens the heart"],
     searchQuery: "Raag Yaman sitar meditation evening",
+    storageKey: "yaman",
   },
   {
     name: "Raag Bhoopali",
@@ -117,6 +129,7 @@ export const RAGAS: Raga[] = [
     mood: "Peaceful & content",
     benefits: ["Gentle stress relief", "Suitable for beginners", "Uplifts without excitement"],
     searchQuery: "Raag Bhoopali flute meditation peaceful",
+    storageKey: "bhoopali",
   },
   {
     name: "Raag Kafi",
@@ -125,6 +138,7 @@ export const RAGAS: Raga[] = [
     mood: "Playful yet relaxing",
     benefits: ["Light relaxation", "Creative flow", "Gentle unwinding"],
     searchQuery: "Raag Kafi flute relaxing night",
+    storageKey: "kafi",
   },
   {
     name: "Raag Darbari Kanada",
@@ -133,6 +147,7 @@ export const RAGAS: Raga[] = [
     mood: "Deeply meditative & profound",
     benefits: ["Induces deep relaxation", "Helps with insomnia", "Quiets mental chatter"],
     searchQuery: "Raag Darbari Kanada late night meditation deep",
+    storageKey: "darbari-kanada",
   },
   {
     name: "Raag Malkauns",
@@ -141,6 +156,7 @@ export const RAGAS: Raga[] = [
     mood: "Introspective & mysterious",
     benefits: ["Deep meditation", "Emotional healing", "Inner stillness"],
     searchQuery: "Raag Malkauns midnight meditation deep",
+    storageKey: "malkauns",
   },
 ];
 

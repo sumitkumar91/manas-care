@@ -12,6 +12,7 @@ import {
   Wind,
   Flower2,
   Music2,
+  Flame,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
@@ -25,7 +26,8 @@ const navItems = [
   { href: "/journal", label: "Journal", icon: BookOpen },
   { href: "/vent", label: "Vent", icon: Wind },
   { href: "/music", label: "Music Therapy", icon: Music2 },
-  { href: "/meditate", label: "Pranayama & Trataka", icon: Flower2 },
+  { href: "/meditate", label: "Pranayama", icon: Flower2 },
+  { href: "/trataka", label: "Trataka", icon: Flame },
   { href: "/chat", label: "Manas Care AI", icon: MessageCircle },
   { href: "/profile", label: "Profile", icon: User },
 ];

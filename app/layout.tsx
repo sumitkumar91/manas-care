@@ -22,6 +22,18 @@ export const metadata: Metadata = {
   title: "Manas Care - Your mental wellness companion",
   description:
     "Manas Care helps students and young adults manage their mental health through mood tracking, guided journaling, and compassionate AI support.",
+  openGraph: {
+    title: "Manas Care - Your mental wellness companion",
+    description: "Vedic techniques meet modern AI for mental wellness. Raga therapy, Pranayama, Trataka, journaling and more.",
+    url: "https://manascare.vercel.app",
+    siteName: "Manas Care",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Manas Care - Your mental wellness companion",
+    description: "Vedic techniques meet modern AI for mental wellness.",
+  },
 };
 
 export default function RootLayout({
