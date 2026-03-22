@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { getGeminiClient, getGeminiModel } from "@/lib/gemini/client";
+import { generateWithFallback } from "@/lib/gemini/client";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -9,9 +9,6 @@ export async function POST(request: Request) {
 
   const { task } = await request.json();
   if (!task?.trim()) return NextResponse.json({ error: "Task is required" }, { status: 400 });
-
-  const client = getGeminiClient();
-  const model = client.getGenerativeModel({ model: getGeminiModel() });
 
   const prompt = `You are scheduling a task using the Vedic Dinacharya system. Pick the single most appropriate time window for this task.
 
@@ -29,10 +26,9 @@ Reply with ONLY the zone ID: vata-dawn, kapha-morning, pitta-midday, vata-aftern
   const VALID = ["vata-dawn", "kapha-morning", "pitta-midday", "vata-afternoon", "kapha-evening", "pitta-night"];
 
   try {
-    const result = await model.generateContent(prompt);
-    const raw = result.response.text().trim();
-    const zoneId = raw.toLowerCase().replace(/\s/g, "");
-    console.log("[classify-task] raw:", raw, "| parsed:", zoneId, "| valid:", VALID.includes(zoneId));
+    const raw = await generateWithFallback(prompt);
+    const zoneId = raw.trim().toLowerCase().replace(/\s/g, "");
+    console.log("[classify-task] raw:", raw.trim(), "| parsed:", zoneId, "| valid:", VALID.includes(zoneId));
     return NextResponse.json({ zoneId: VALID.includes(zoneId) ? zoneId : "pitta-midday" });
   } catch (e) {
     console.error("[classify-task] error:", e);
