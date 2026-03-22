@@ -56,4 +56,4 @@ Run the SQL files in `supabase/migrations/` in order via the Supabase SQL editor
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:6767](http://localhost:6767).

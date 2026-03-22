@@ -23,11 +23,12 @@ const BENEFITS = [
 ];
 
 const BEFORE_YOU_BEGIN = [
-  "Sit with the candle at eye level, about 2 feet away.",
-  "Dim the lights or do this in a dark room.",
-  "Try not to blink - if you must, blink gently.",
-  "When thoughts arise, return your gaze to the flame.",
-  "After the session, close your eyes and visualise the flame internally.",
+  "Sit comfortably with your spine straight, eyes level with the screen.",
+  "Dim your surroundings if possible — reduce visual distractions.",
+  "Fix your gaze on the point without letting it wander.",
+  "Try not to blink — if you must, blink slowly and return.",
+  "When thoughts arise, gently bring your gaze back to the point.",
+  "After the session, close your eyes and hold the image internally.",
 ];
 
 export function TratakaPractice() {
@@ -78,43 +79,23 @@ export function TratakaPractice() {
   if (active) {
     return (
       <div className="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center gap-10">
-        <div className="flex flex-col items-center gap-2">
-          <div className="relative w-16 h-24 flex items-end justify-center">
-            <div className="absolute bottom-0 w-14 h-14 rounded-full bg-amber-500/20 blur-xl animate-pulse" />
-            <div
-              className="absolute bottom-0 w-8 h-20 rounded-t-full rounded-b-sm bg-gradient-to-t from-amber-600 via-amber-400 to-yellow-200"
-              style={{ animation: "flicker 1.8s ease-in-out infinite alternate" }}
-            />
-            <div
-              className="absolute bottom-0 w-4 h-14 rounded-t-full rounded-b-sm bg-gradient-to-t from-orange-500 via-yellow-300 to-white opacity-80"
-              style={{ animation: "flicker 1.3s ease-in-out infinite alternate-reverse" }}
-            />
-            <div className="absolute bottom-0 w-2 h-6 rounded-t-full bg-white opacity-60" />
-            <div className="absolute bottom-0 w-1 h-4 bg-gray-700 rounded-sm translate-y-3" />
-          </div>
-          <div className="w-10 h-16 bg-gradient-to-b from-amber-50 to-amber-100 rounded-sm border border-amber-200" />
+        {/* Gazing point — a single glowing bindu */}
+        <div className="relative flex items-center justify-center w-32 h-32">
+          <div className="absolute w-32 h-32 rounded-full bg-white/5 blur-2xl" />
+          <div className="absolute w-16 h-16 rounded-full bg-white/10 blur-xl" />
+          <div className="w-5 h-5 rounded-full bg-white shadow-[0_0_24px_6px_rgba(255,255,255,0.4)]" />
         </div>
 
         <div className="text-center space-y-1">
-          <p className="text-amber-200/60 text-sm tracking-widest uppercase">Trataka</p>
-          <p className="text-white/40 text-xs">Keep your gaze soft and steady on the flame</p>
+          <p className="text-white/40 text-sm tracking-widest uppercase">Trataka</p>
+          <p className="text-white/25 text-xs">Hold your gaze steady on the point</p>
         </div>
 
-        <p className="text-white/80 text-4xl font-mono tracking-widest">{mins}:{secs}</p>
+        <p className="text-white/70 text-4xl font-mono tracking-widest">{mins}:{secs}</p>
 
         <Button variant="ghost" size="sm" className="text-white/30 hover:text-white/60" onClick={handleStop}>
           End session
         </Button>
-
-        <style>{`
-          @keyframes flicker {
-            0% { transform: scaleX(1) scaleY(1) rotate(-1deg); }
-            25% { transform: scaleX(0.95) scaleY(1.03) rotate(1deg); }
-            50% { transform: scaleX(1.04) scaleY(0.97) rotate(-0.5deg); }
-            75% { transform: scaleX(0.97) scaleY(1.02) rotate(1.5deg); }
-            100% { transform: scaleX(1.02) scaleY(1) rotate(-1deg); }
-          }
-        `}</style>
       </div>
     );
   }
@@ -147,7 +128,7 @@ export function TratakaPractice() {
         {infoOpen && (
           <div className="space-y-3 pt-1 border-t">
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Trataka is the practice of fixing your eyes on a single point - traditionally a candle flame - without blinking or letting the gaze wander. When the eyes stop moving, the mind follows into stillness.
+              Trataka is the practice of fixing your eyes on a single point without blinking or letting the gaze wander. Traditionally practised on a candle flame, a dot, or a star — any still object that anchors the attention. When the eyes stop moving, the mind follows into stillness.
             </p>
             <div className="space-y-0.5">
               <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">History</p>
