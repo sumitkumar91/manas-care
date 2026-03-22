@@ -30,9 +30,12 @@ Reply with ONLY the zone ID: vata-dawn, kapha-morning, pitta-midday, vata-aftern
 
   try {
     const result = await model.generateContent(prompt);
-    const zoneId = result.response.text().trim().toLowerCase().replace(/\s/g, "");
+    const raw = result.response.text().trim();
+    const zoneId = raw.toLowerCase().replace(/\s/g, "");
+    console.log("[classify-task] raw:", raw, "| parsed:", zoneId, "| valid:", VALID.includes(zoneId));
     return NextResponse.json({ zoneId: VALID.includes(zoneId) ? zoneId : "pitta-midday" });
-  } catch {
+  } catch (e) {
+    console.error("[classify-task] error:", e);
     return NextResponse.json({ zoneId: "pitta-midday" });
   }
 }
