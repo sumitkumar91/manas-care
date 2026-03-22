@@ -50,6 +50,20 @@ export const BREATHING_EXERCISES: BreathingExercise[] = [
       { label: "Exhale", duration: 5, color: "from-orange-400 to-orange-600" },
     ],
   },
+  {
+    id: "anulom-vilom",
+    name: "Anulom Vilom",
+    description: "Alternate nostril breathing — left inhale, hold, right exhale, right inhale, hold, left exhale.",
+    benefit: "Balances Ida & Pingala nadis",
+    phases: [
+      { label: "Left Inhale", duration: 4, color: "from-blue-400 to-blue-600" },
+      { label: "Hold", duration: 4, color: "from-violet-400 to-violet-600" },
+      { label: "Right Exhale", duration: 4, color: "from-teal-400 to-teal-600" },
+      { label: "Right Inhale", duration: 4, color: "from-blue-400 to-blue-600" },
+      { label: "Hold", duration: 4, color: "from-violet-400 to-violet-600" },
+      { label: "Left Exhale", duration: 4, color: "from-teal-400 to-teal-600" },
+    ],
+  },
 ];
 
 export interface Raga {

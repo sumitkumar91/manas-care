@@ -54,8 +54,8 @@ function ActiveBreathing({ exercise, onExit }: { exercise: BreathingExercise; on
   const progress = elapsed / phase.duration;
 
   // Scale: inhale = grow, hold = stay, exhale = shrink
-  const isInhale = phase.label === "Inhale";
-  const isExhale = phase.label === "Exhale";
+  const isInhale = phase.label.includes("Inhale");
+  const isExhale = phase.label.includes("Exhale");
   const circleScale = isInhale
     ? 0.5 + 0.5 * progress
     : isExhale

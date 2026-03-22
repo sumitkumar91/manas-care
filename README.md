@@ -1,21 +1,23 @@
 # Manas Care
 
-A privacy-first mental health companion for students and young adults. Combines AI chat, mood tracking, and guided journaling in one place.
+A privacy-first mental wellness app for students and young adults, rooted in Vedic wisdom.
+
+Live at [manascare.vercel.app](https://manascare.vercel.app) · [Join Discord](https://discord.gg/b8TQgZqCKD)
 
 ## Features
 
-- **AI Chat** — Conversational support powered by Gemini AI, with crisis detection and US helpline resources
-- **Mood Tracking** — Daily mood logs, streak tracking, and 7/30-day trend charts
+- **Vedic Practices** — Music Therapy (Raga Chikitsa), Pranayama, Trataka, and Dinacharya (circadian scheduling)
+- **Mood Tracking** — Daily mood logs with streak tracking and trend history
 - **Guided Journaling** — Free write, CBT exercises, and gratitude entries — all encrypted client-side
-- **Guest Mode** — Try everything without signing up; convert to a full account anytime
+- **Vent Space** — Anonymous, judgment-free space to let it out
 - **Privacy First** — Journal content is AES-GCM encrypted in the browser; the server only ever stores ciphertext
 
 ## Tech Stack
 
 - **Framework** — Next.js 16 (App Router)
 - **Database & Auth** — Supabase (Postgres + RLS + Anonymous Auth)
-- **AI** — Google Gemini API (`@google/generative-ai`)
-- **UI** — Tailwind CSS + shadcn/ui (Base UI)
+- **AI** — Google Gemini API (task classification, vent response)
+- **UI** — Tailwind CSS + shadcn/ui
 - **Encryption** — Web Crypto API (AES-GCM 256-bit, PBKDF2 key derivation)
 
 ## Getting Started
@@ -23,8 +25,8 @@ A privacy-first mental health companion for students and young adults. Combines 
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/sumitkumar91/manas.git
-cd manas
+git clone https://github.com/sumitkumar91/manas-care.git
+cd manas-care
 npm install
 ```
 
@@ -40,11 +42,9 @@ GEMINI_MODEL=gemini-1.5-flash
 JOURNAL_ENCRYPTION_PEPPER=your-32-char-random-secret
 ```
 
-- Get Supabase credentials from [supabase.com](https://supabase.com)
-- Get a Gemini API key from [aistudio.google.com](https://aistudio.google.com)
+- Supabase credentials from [supabase.com](https://supabase.com)
+- Gemini API key from [aistudio.google.com](https://aistudio.google.com)
 - Generate a pepper: `openssl rand -base64 24`
-
-`GEMINI_MODEL` accepts comma-separated values — each request picks one randomly (e.g. `gemini-1.5-flash,gemini-1.5-pro`).
 
 ### 3. Run database migrations
 
@@ -57,4 +57,3 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
-
