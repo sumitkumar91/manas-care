@@ -15,7 +15,7 @@ export function FeedbackForm({ userId }: { userId: string }) {
     if (!message.trim()) return;
     setSubmitting(true);
     const supabase = createClient();
-    const { error } = await supabase
+    const { error } = await (supabase as any)
       .from("feedback")
       .insert({ user_id: userId, message: message.trim() });
 
