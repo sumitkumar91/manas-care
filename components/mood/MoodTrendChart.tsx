@@ -33,7 +33,7 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: { payl
   return (
     <div className="bg-card border rounded-lg shadow-md p-3 text-sm max-w-[180px]">
       <p className="font-medium">
-        {d.mood_emoji} {d.mood_label} - {d.score}/10
+        {d.mood_emoji} {d.mood_label}
       </p>
       <p className="text-xs text-muted-foreground mt-0.5">
         {format(parseISO(d.logged_at), "EEE, MMM d")}

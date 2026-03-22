@@ -18,9 +18,6 @@ export function MoodSummaryCard({ todayLog }: MoodSummaryCardProps) {
             <>
               <p className="font-semibold leading-none">
                 {todayLog.mood_label}
-                <span className="text-muted-foreground font-normal text-sm ml-2">
-                  {todayLog.score}/10
-                </span>
               </p>
               <p className="text-xs text-muted-foreground mt-1">Today&apos;s mood logged</p>
             </>

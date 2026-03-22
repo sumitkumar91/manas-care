@@ -77,9 +77,6 @@ export function MoodLogForm({ userId, existingLog }: MoodLogFormProps) {
     }).eq("user_id", uid);
   }
 
-  const scoreLabel =
-    score >= 9 ? "Excellent" : score >= 7 ? "Good" : score >= 5 ? "Okay" : score >= 3 ? "Low" : "Very low";
-
   return (
     <form onSubmit={handleSubmit} className="space-y-8 max-w-lg">
       {/* Emoji picker */}

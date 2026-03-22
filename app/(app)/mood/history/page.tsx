@@ -52,7 +52,6 @@ export default async function MoodHistoryPage() {
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium">
                       {log.mood_label}
-                      <span className="text-muted-foreground font-normal ml-2">{log.score}/10</span>
                     </p>
                     {log.notes && (
                       <p className="text-xs text-muted-foreground truncate mt-0.5">{log.notes}</p>

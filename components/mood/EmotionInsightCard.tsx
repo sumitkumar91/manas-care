@@ -15,7 +15,7 @@ export function EmotionInsightCard({ logs }: EmotionInsightCardProps) {
 
   // Average score
   const avg = logs.reduce((s, l) => s + l.score, 0) / logs.length;
-  insights.push(`Your average mood score over this period is **${avg.toFixed(1)}/10**.`);
+  insights.push(`Your average mood over this period is **${avg >= 7 ? "good" : avg >= 5 ? "okay" : "low"}** (${avg.toFixed(1)}).`);
 
   // Day of week pattern
   const byDay: Record<number, number[]> = {};
