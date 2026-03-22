@@ -57,8 +57,8 @@ export default async function MoodHistoryPage() {
                       <p className="text-xs text-muted-foreground truncate mt-0.5">{log.notes}</p>
                     )}
                   </div>
-                  <span className="text-xs text-muted-foreground shrink-0">
-                    {format(parseISO(log.logged_at), "MMM d")}
+                  <span className="text-xs text-muted-foreground shrink-0" suppressHydrationWarning>
+                    {new Date(log.logged_at).toLocaleDateString("en-IN", { month: "short", day: "numeric" })}
                   </span>
                 </div>
               ))}
