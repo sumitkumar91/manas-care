@@ -40,6 +40,7 @@ export async function proxy(request: NextRequest) {
     pathname.startsWith("/login") ||
     pathname.startsWith("/signup") ||
     pathname.startsWith("/auth/") ||
+    pathname.startsWith("/callback") ||
     pathname.startsWith("/api/");
 
   // Redirect unauthenticated users to login
