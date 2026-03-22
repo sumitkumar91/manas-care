@@ -8,6 +8,58 @@ export interface BreathingExercise {
 
 export const BREATHING_EXERCISES: BreathingExercise[] = [
   {
+    id: "nadi-shodhana",
+    name: "Nadi Shodhana",
+    description: "Alternate nostril breathing. Inhale right, exhale left, inhale left, exhale right. Repeat 10 breaths up to 10 minutes.",
+    benefit: "Coordinates brain hemispheres",
+    phases: [
+      { label: "Right Inhale", duration: 4, color: "from-amber-400 to-amber-600" },
+      { label: "Left Exhale", duration: 4, color: "from-teal-400 to-teal-600" },
+      { label: "Left Inhale", duration: 4, color: "from-blue-400 to-blue-600" },
+      { label: "Right Exhale", duration: 4, color: "from-teal-400 to-teal-600" },
+    ],
+  },
+  {
+    id: "sheetali",
+    name: "Sheetali",
+    description: "The cooling breath. Fold tongue lengthwise and inhale through it. Exhale through the nose. 10 breaths minimum.",
+    benefit: "Reduces pitta — cools head & digestion",
+    phases: [
+      { label: "Inhale (tongue)", duration: 5, color: "from-cyan-400 to-cyan-600" },
+      { label: "Exhale", duration: 5, color: "from-teal-400 to-teal-600" },
+    ],
+  },
+  {
+    id: "sheetkari",
+    name: "Sheetkari",
+    description: "The hissing breath. Clench teeth, expose them and take a deep hissing inhale. Exhale through the nose. Same effect as Sheetali.",
+    benefit: "Reduces pitta, purifies the senses",
+    phases: [
+      { label: "Inhale (teeth)", duration: 5, color: "from-cyan-400 to-cyan-600" },
+      { label: "Exhale", duration: 5, color: "from-teal-400 to-teal-600" },
+    ],
+  },
+  {
+    id: "surya-bhedna",
+    name: "Surya Bhedna",
+    description: "The solar breath. Inhale through the right nostril, exhale through the left. 10 breaths minimum, 10 minutes maximum.",
+    benefit: "Heating breath — balances vata",
+    phases: [
+      { label: "Right Inhale", duration: 4, color: "from-amber-400 to-orange-600" },
+      { label: "Left Exhale", duration: 4, color: "from-orange-400 to-red-600" },
+    ],
+  },
+  {
+    id: "chandra-bhedna",
+    name: "Chandra Bhedna",
+    description: "The lunar breath. Inhale through the left nostril, exhale through the right. 10 breaths minimum, 10 minutes maximum.",
+    benefit: "Cooling breath — reduces pitta",
+    phases: [
+      { label: "Left Inhale", duration: 4, color: "from-blue-400 to-indigo-600" },
+      { label: "Right Exhale", duration: 4, color: "from-indigo-400 to-violet-600" },
+    ],
+  },
+  {
     id: "box",
     name: "Box Breathing",
     description: "Equal counts of inhale, hold, exhale, hold.",
@@ -48,20 +100,6 @@ export const BREATHING_EXERCISES: BreathingExercise[] = [
     phases: [
       { label: "Inhale", duration: 5, color: "from-amber-400 to-amber-600" },
       { label: "Exhale", duration: 5, color: "from-orange-400 to-orange-600" },
-    ],
-  },
-  {
-    id: "anulom-vilom",
-    name: "Anulom Vilom",
-    description: "Alternate nostril breathing — left inhale, hold, right exhale, right inhale, hold, left exhale.",
-    benefit: "Balances Ida & Pingala nadis",
-    phases: [
-      { label: "Left Inhale", duration: 4, color: "from-blue-400 to-blue-600" },
-      { label: "Hold", duration: 4, color: "from-violet-400 to-violet-600" },
-      { label: "Right Exhale", duration: 4, color: "from-teal-400 to-teal-600" },
-      { label: "Right Inhale", duration: 4, color: "from-blue-400 to-blue-600" },
-      { label: "Hold", duration: 4, color: "from-violet-400 to-violet-600" },
-      { label: "Left Exhale", duration: 4, color: "from-teal-400 to-teal-600" },
     ],
   },
 ];

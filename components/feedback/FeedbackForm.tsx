@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
 export function FeedbackForm({ userId }: { userId: string }) {
+  const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -17,7 +19,7 @@ export function FeedbackForm({ userId }: { userId: string }) {
     const supabase = createClient();
     const { error } = await (supabase as any)
       .from("feedback")
-      .insert({ user_id: userId, message: message.trim() });
+      .insert({ user_id: userId, name: name.trim() || null, message: message.trim() });
 
     if (error) {
       toast.error("Failed to send feedback. Try again.");
@@ -39,6 +41,12 @@ export function FeedbackForm({ userId }: { userId: string }) {
 
   return (
     <div className="space-y-4">
+      <Input
+        placeholder="Your name (optional)"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        maxLength={100}
+      />
       <Textarea
         placeholder="What's working well? What could be better? Any features you'd love to see?"
         rows={8}
