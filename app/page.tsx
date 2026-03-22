@@ -35,7 +35,7 @@ export default async function LandingPage() {
           Mental wellness built for the modern mind
         </h1>
         <p className="text-lg text-muted-foreground max-w-xl">
-          Manas Care combines ancient Vedic techniques — Raga therapy, Pranayama, Trataka, and Dinacharya — with mood tracking, guided journaling, and a space to just breathe.
+          Manas Care combines ancient Vedic techniques like Raga therapy, Pranayama, Trataka, and Dinacharya with mood tracking, guided journaling, and a space to just breathe.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 mt-2">
           <GoogleSignInButton className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors disabled:opacity-50 cursor-pointer" />
@@ -95,7 +95,7 @@ export default async function LandingPage() {
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <h2 className="text-3xl font-bold">Why Vedic?</h2>
           <p className="text-muted-foreground text-base leading-relaxed">
-            Most mental health apps give you CBT worksheets and step counters. We go deeper. Indian classical science has studied the mind for thousands of years — Raga Chikitsa (music therapy), Pranayama (breath science), Trataka (visual focus training), and Dinacharya (circadian scheduling aligned to your dosha) are not trends. They are proven, time-tested tools for mental clarity and emotional balance. We&apos;ve made them accessible in a modern wellness app.
+            Most mental health apps give you CBT worksheets and step counters. We go deeper. Indian classical science has studied the mind for thousands of years. Raga Chikitsa (music therapy), Pranayama (breath science), Trataka (visual focus training), and Dinacharya (circadian scheduling aligned to your dosha) are not trends. They are proven, time-tested tools for mental clarity and emotional balance. We&apos;ve made them accessible in a modern wellness app.
           </p>
           <div className="flex flex-wrap justify-center gap-3 pt-2">
             {["Raga Chikitsa", "Pranayama", "Trataka", "Dinacharya", "Privacy First"].map((tag) => (
@@ -112,23 +112,12 @@ export default async function LandingPage() {
         <ShieldCheck className="h-8 w-8 text-primary mx-auto" />
         <h2 className="text-2xl font-bold">Your data stays yours</h2>
         <p className="text-muted-foreground">
-          Journal entries are encrypted in your browser before they ever reach our servers - we cannot read them even if we wanted to. No ads. No selling your data. Ever.
+          Journal entries are encrypted in your browser before they ever reach our servers. We cannot read them even if we wanted to. No ads. No selling your data. Ever.
         </p>
       </section>
 
-      {/* CTA */}
-      <section className="px-6 pb-24">
-        <div className="max-w-xl mx-auto text-center bg-primary/5 border rounded-3xl p-10 space-y-4">
-          <h2 className="text-2xl font-bold">Ready to start?</h2>
-          <p className="text-muted-foreground text-sm">
-            Takes 2 minutes. No email required if you just want to explore.
-          </p>
-          <GoogleSignInButton className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors disabled:opacity-50 cursor-pointer" />
-        </div>
-      </section>
-
       {/* Discord */}
-      <section className="px-6 pb-16">
+      <section className="px-6 pb-24">
         <div className="max-w-xl mx-auto text-center border rounded-3xl p-8 space-y-3 bg-[#5865F2]/5 border-[#5865F2]/20">
           <p className="text-2xl">💬</p>
           <h2 className="text-xl font-bold">Join the community</h2>
@@ -148,7 +137,7 @@ export default async function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t px-6 py-6 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Manas Care · Built with care for your mind.
+        © {new Date().getFullYear()} Manas Care. Built with care for your mind.
       </footer>
     </div>
   );
@@ -159,19 +148,19 @@ const VEDIC_FEATURES = [
     icon: Music2,
     title: "Music Therapy",
     description:
-      "Raga Chikitsa — Indian classical ragas prescribed for your time of day. Each raga carries a distinct emotional quality that resonates with your mind.",
+      "Raga Chikitsa. Indian classical ragas prescribed for your time of day. Each raga carries a distinct emotional quality that resonates with your mind.",
   },
   {
     icon: Flower2,
     title: "Pranayama",
     description:
-      "Guided breathing exercises — Box breathing, 4-7-8, Nadi Shodhana — with a visual animated circle that breathes with you.",
+      "Vedic breathing techniques including Nadi Shodhana, Sheetali, Surya Bhedna, and more. With a visual animated circle that breathes with you.",
   },
   {
     icon: Flame,
     title: "Trataka",
     description:
-      "The ancient yogic candle-gazing practice for building concentration and quieting mental chatter.",
+      "The ancient yogic gazing meditation for building concentration and quieting mental chatter.",
   },
   {
     icon: Sun,
@@ -192,12 +181,12 @@ const CORE_FEATURES = [
     icon: BookOpen,
     title: "Guided Journaling",
     description:
-      "Free write, CBT exercises, or gratitude prompts. All entries are encrypted end-to-end — only you can read them.",
+      "Free write, CBT exercises, or gratitude prompts. All entries are encrypted end-to-end, only you can read them.",
   },
   {
     icon: Wind,
     title: "Venting Space",
     description:
-      "Just need to get it out? Vent freely with no judgment. Release it or save it — you decide.",
+      "Just need to get it out? Vent freely with no judgment. Release it or save it, you decide.",
   },
 ];
