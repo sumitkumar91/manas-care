@@ -9,6 +9,7 @@ import { toast } from "sonner";
 
 export function FeedbackForm({ userId }: { userId: string }) {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -19,7 +20,7 @@ export function FeedbackForm({ userId }: { userId: string }) {
     const supabase = createClient();
     const { error } = await (supabase as any)
       .from("feedback")
-      .insert({ user_id: userId, name: name.trim() || null, message: message.trim() });
+      .insert({ user_id: userId, name: name.trim() || null, email: email.trim() || null, message: message.trim() });
 
     if (error) {
       toast.error("Failed to send feedback. Try again.");
@@ -46,6 +47,13 @@ export function FeedbackForm({ userId }: { userId: string }) {
         value={name}
         onChange={(e) => setName(e.target.value)}
         maxLength={100}
+      />
+      <Input
+        placeholder="Your email (optional)"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        maxLength={200}
       />
       <Textarea
         placeholder="What's working well? What could be better? Any features you'd love to see?"
