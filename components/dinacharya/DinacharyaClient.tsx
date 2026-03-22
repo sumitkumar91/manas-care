@@ -6,7 +6,6 @@ import {
   DOSHA_COLORS,
   getZoneById,
   getCurrentZone,
-  classifyByKeyword,
   type Task,
   type DoshaZone,
 } from "@/lib/constants/dinacharya";
@@ -44,14 +43,6 @@ export function DinacharyaClient() {
     const text = input.trim();
     if (!text) return;
     setInput("");
-
-    const keywordZone = classifyByKeyword(text);
-    if (keywordZone) {
-      trackEvent("dinacharya_task_added", { zone_id: keywordZone, method: "keyword" });
-      persist([...tasks, { id: crypto.randomUUID(), text, zoneId: keywordZone, done: false }]);
-      inputRef.current?.focus();
-      return;
-    }
 
     setClassifying(true);
     try {
