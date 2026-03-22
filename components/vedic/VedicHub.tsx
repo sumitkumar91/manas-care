@@ -18,7 +18,7 @@ const FEATURES = [
     label: "Pranayama",
     subtitle: "Breath Control",
     description:
-      "Vedic breathing exercises that regulate the nervous system. From calming Nadi Shodhana to energising Kapalabhati.",
+      "Vedic breathing exercises that regulate the nervous system. From Nadi Shodhana and Sheetali to Surya Bhedna and Chandra Bhedna.",
     icon: Flower2,
     accent: "from-emerald-500/10 to-teal-500/10 border-emerald-500/20",
     iconColor: "text-emerald-500",
@@ -27,7 +27,7 @@ const FEATURES = [
   {
     href: "/trataka",
     label: "Trataka",
-    subtitle: "Candle Gazing",
+    subtitle: "Gazing Meditation",
     description:
       "A Hatha Yoga purification practice. Sustained focus on a single point builds concentration, steadies the mind, and reduces anxiety.",
     icon: Flame,
