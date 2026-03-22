@@ -39,7 +39,8 @@ export async function proxy(request: NextRequest) {
     pathname === "/robots.txt" ||
     pathname.startsWith("/login") ||
     pathname.startsWith("/signup") ||
-    pathname.startsWith("/auth/");
+    pathname.startsWith("/auth/") ||
+    pathname.startsWith("/api/");
 
   // Redirect unauthenticated users to login
   if (!user && !isPublicRoute) {
