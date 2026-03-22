@@ -97,6 +97,7 @@ const KEYWORD_ZONES: Array<{ zoneId: string; keywords: string[] }> = [
       "analysis", "plan", "planning", "budget", "finance", "report", "review", "audit",
       "calculate", "data", "exam", "solve", "problem", "decision", "strategy", "math",
       "spreadsheet", "document", "draft", "learn", "test", "fix",
+      "lunch", "cook lunch",
     ],
   },
   {
@@ -110,7 +111,7 @@ const KEYWORD_ZONES: Array<{ zoneId: string; keywords: string[] }> = [
   {
     zoneId: "kapha-evening",
     keywords: [
-      "dinner", "lunch", "eat", "meal", "cook dinner", "cook lunch", "family", "friend",
+      "dinner", "eat", "meal", "cook dinner", "family", "friend",
       "social", "leisure", "hobby", "relax", "unwind", "rest", "nap", "watch", "movie",
       "tv", "music", "walk evening", "light", "gentle",
     ],
