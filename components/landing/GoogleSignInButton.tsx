@@ -17,7 +17,7 @@ export function GoogleSignInButton({ className }: { className?: string }) {
     setLoading(true);
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${location.origin}/callback` },
+      options: { redirectTo: `${location.origin}/auth/callback` },
     });
   }
 
