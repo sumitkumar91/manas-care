@@ -6,6 +6,7 @@ import {
   DOSHA_COLORS,
   getZoneById,
   getCurrentZone,
+  classifyByKeyword,
   type Task,
   type DoshaZone,
 } from "@/lib/constants/dinacharya";
@@ -44,6 +45,14 @@ export function DinacharyaClient() {
     if (!text) return;
     setInput("");
 
+    const keywordZone = classifyByKeyword(text);
+    if (keywordZone) {
+      trackEvent("dinacharya_task_added", { zone_id: keywordZone, method: "keyword" });
+      persist([...tasks, { id: crypto.randomUUID(), text, zoneId: keywordZone, done: false }]);
+      inputRef.current?.focus();
+      return;
+    }
+
     setClassifying(true);
     try {
       const res = await fetch("/api/classify-task", {
@@ -52,10 +61,10 @@ export function DinacharyaClient() {
         body: JSON.stringify({ task: text }),
       });
       const { zoneId } = await res.json();
-      trackEvent("dinacharya_task_added", { zone_id: zoneId ?? "pitta-midday", method: "ai" });
-      persist([...tasks, { id: crypto.randomUUID(), text, zoneId: zoneId ?? "pitta-midday", done: false }]);
+      trackEvent("dinacharya_task_added", { zone_id: zoneId ?? "kapha-morning", method: "ai" });
+      persist([...tasks, { id: crypto.randomUUID(), text, zoneId: zoneId ?? "kapha-morning", done: false }]);
     } catch {
-      persist([...tasks, { id: crypto.randomUUID(), text, zoneId: "pitta-midday", done: false }]);
+      persist([...tasks, { id: crypto.randomUUID(), text, zoneId: "kapha-morning", done: false }]);
     } finally {
       setClassifying(false);
       inputRef.current?.focus();
