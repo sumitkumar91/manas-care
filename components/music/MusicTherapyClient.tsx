@@ -65,9 +65,6 @@ export function MusicTherapyClient() {
             <p className="text-sm text-muted-foreground leading-relaxed">
               The core philosophy is that sound — or <span className="font-medium text-foreground">Nada</span> — is a form of energy that can harmonize the biological rhythms of the listener.
             </p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              The <span className="font-medium text-foreground">Prahar system</span> divides the 24-hour day into eight 3-hour windows. Ragas prescribed for each window align with the natural state of the body at that time.
-            </p>
           </div>
         )}
       </div>
