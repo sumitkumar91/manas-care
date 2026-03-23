@@ -6,7 +6,7 @@ Live at [manascare.vercel.app](https://manascare.vercel.app) · [Join Discord](h
 
 ## Features
 
-- **Vedic Practices** — Music Therapy (Raga Chikitsa), Pranayama, Trataka, and Dinacharya (circadian scheduling)
+- **Vedic Practices** — Music Therapy (Raga Chikitsa), Pranayama (breath control), Trataka (gazing meditation), and Dinacharya (circadian scheduling)
 - **Mood Tracking** — Daily mood logs with streak tracking and trend history
 - **Guided Journaling** — Free write, CBT exercises, and gratitude entries — all encrypted client-side
 - **Vent Space** — Anonymous, judgment-free space to let it out
