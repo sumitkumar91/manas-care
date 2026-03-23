@@ -60,10 +60,13 @@ export function MusicTherapyClient() {
         {infoOpen && (
           <div className="space-y-3 pt-1 border-t">
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Raga Chikitsa is a 2,000-year-old branch of Nada Yoga - the yoga of sound. Each raga is a precise melodic framework built from specific notes, intervals, and ornaments that produce predictable psychoacoustic effects on the nervous system.
+              Raga Chikitsa is the ancient Indian ethno-medical practice of healing through music. Rooted in the Vedic traditions and formalized in classical Indian musicology, it explores the relationship between the vibrations of specific musical scales (Ragas) and the human mind and body.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              The <span className="font-medium text-foreground">Prahar system</span> divides the 24-hour day into eight 3-hour windows. Ragas prescribed for each window align with what the body is doing at that time - energising at dawn, focusing in the morning, releasing in the evening, and quieting at night.
+              The core philosophy is that sound — or <span className="font-medium text-foreground">Nada</span> — is a form of energy that can harmonize the biological rhythms of the listener.
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              The <span className="font-medium text-foreground">Prahar system</span> divides the 24-hour day into eight 3-hour windows. Ragas prescribed for each window align with the natural state of the body at that time.
             </p>
           </div>
         )}
