@@ -130,12 +130,6 @@ export function TratakaPractice() {
             <p className="text-sm text-muted-foreground leading-relaxed">
               Trataka is the practice of fixing your eyes on a single point without blinking or letting the gaze wander. Traditionally practised on a candle flame, a dot, or a star — any still object that anchors the attention. When the eyes stop moving, the mind follows into stillness.
             </p>
-            <div className="space-y-0.5">
-              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">History</p>
-              <p className="text-sm text-muted-foreground leading-relaxed pt-1">
-                One of the six Shatkarmas from the Hatha Yoga Pradipika, a 15th-century Sanskrit text. Practised for thousands of years in yogic, Tantric, and Sufi traditions to awaken the Ajna chakra and sharpen the mind.
-              </p>
-            </div>
           </div>
         )}
       </div>
