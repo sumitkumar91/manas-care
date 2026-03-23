@@ -4,15 +4,10 @@ import { PageHeader } from "@/components/shared/PageHeader";
 import { StreakWidget } from "@/components/dashboard/StreakWidget";
 import { MoodSummaryCard } from "@/components/dashboard/MoodSummaryCard";
 import { QuickActions } from "@/components/dashboard/QuickActions";
+import { DashboardGreeting } from "@/components/dashboard/DashboardGreeting";
 
 export const metadata = { title: "Dashboard - Manas Care" };
 
-function getGreeting() {
-  const hour = new Date().getHours();
-  if (hour < 12) return "Good morning";
-  if (hour < 17) return "Good afternoon";
-  return "Good evening";
-}
 
 function getTodayRange() {
   const now = new Date();
@@ -43,10 +38,7 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <PageHeader
-        title={`${getGreeting()}, ${name}`}
-        description="Here's your wellness snapshot."
-      />
+      <DashboardGreeting name={name} />
       <div className="p-6 space-y-5 max-w-2xl">
         <QuickActions />
         <MoodSummaryCard todayLog={todayLog ?? null} />
