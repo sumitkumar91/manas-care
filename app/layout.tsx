@@ -19,7 +19,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  icons: { icon: "/logo2.png" },
+  icons: { icon: "/logo2.png", apple: "/logo2.png" },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Manas Care",
+  },
   title: "Manas Care - Your mental wellness companion",
   description:
     "Manas Care helps students and young adults manage their mental health through mood tracking, guided journaling, and compassionate AI support.",
