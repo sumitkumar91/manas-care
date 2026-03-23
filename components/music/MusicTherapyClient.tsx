@@ -5,28 +5,6 @@ import { getRagasForTime, type Raga } from "@/lib/constants/meditation";
 import { RagaCard } from "./RagaCard";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-const SCIENCE = [
-  {
-    claim: "Reduces cortisol and anxiety",
-    detail: "A 2019 study in PLOS ONE found that listening to Indian classical music significantly lowered salivary cortisol levels and self-reported anxiety in university students.",
-  },
-  {
-    claim: "Entrains brainwaves",
-    detail: "EEG research at IIT Delhi showed ragas with slow tempos (like Darbari Kanada) induce delta and theta waves associated with deep relaxation, while morning ragas like Bhairav increase alpha activity linked to calm focus.",
-  },
-  {
-    claim: "Supports cardiovascular health",
-    detail: "A randomised trial at AIIMS New Delhi found 30 minutes of raga listening daily over 4 weeks lowered systolic blood pressure by 6 mmHg in hypertensive patients.",
-  },
-  {
-    claim: "Synchronises with circadian rhythms",
-    detail: "The Prahar system maps ragas to 3-hour blocks aligned with the body's cortisol and melatonin cycles. Morning ragas use ascending phrases that mirror the waking state; night ragas use descending phrases that mirror wind-down.",
-  },
-  {
-    claim: "Used in clinical settings",
-    detail: "NIMHANS in Bengaluru has incorporated Raga Chikitsa into adjunct therapy for depression and anxiety disorders.",
-  },
-];
 
 const PRAHARS = [
   { label: "1 AM - 4 AM",  hourRange: [1, 4]   as [number, number] },
@@ -87,15 +65,6 @@ export function MusicTherapyClient() {
             <p className="text-sm text-muted-foreground leading-relaxed">
               The <span className="font-medium text-foreground">Prahar system</span> divides the 24-hour day into eight 3-hour windows. Ragas prescribed for each window align with what the body is doing at that time - energising at dawn, focusing in the morning, releasing in the evening, and quieting at night.
             </p>
-            <div className="space-y-3 pt-1 border-t">
-              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground pt-1">Research</p>
-              {SCIENCE.map((s) => (
-                <div key={s.claim} className="space-y-0.5">
-                  <p className="text-sm font-medium">{s.claim}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{s.detail}</p>
-                </div>
-              ))}
-            </div>
           </div>
         )}
       </div>
