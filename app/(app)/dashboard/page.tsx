@@ -16,18 +16,12 @@ function getTodayRange() {
   return { start, end };
 }
 
-function getCheckinType(): "morning" | "evening" {
-  const hour = new Date().getHours();
-  return hour >= 17 ? "evening" : "morning";
-}
-
 export default async function DashboardPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/");
 
-  const today = new Date().toLocaleDateString("en-CA");
-  const checkinType = getCheckinType();
+  const today = new Date().toISOString().slice(0, 10);
 
   const [{ data: profile }, { data: streak }, { data: todayLog }, { data: checkins }] = await Promise.all([
     supabase.from("profiles").select("display_name").eq("id", user.id).single(),
@@ -47,14 +41,14 @@ export default async function DashboardPage() {
   ]);
 
   const name = profile?.display_name?.split(" ")[0] ?? "there";
-  const checkinDone = checkins?.some((c: { type: string }) => c.type === checkinType) ?? false;
+  const completedTypes: string[] = checkins?.map((c: { type: string }) => c.type) ?? [];
 
   return (
     <div>
       <DashboardGreeting name={name} />
       <div className="p-6 space-y-5 max-w-2xl">
         <QuickActions />
-        <CheckInCard userId={user.id} type={checkinType} done={checkinDone} />
+        <CheckInCard userId={user.id} completedTypes={completedTypes} />
         <MoodSummaryCard todayLog={todayLog ?? null} />
         <StreakWidget
           currentStreak={streak?.current_streak ?? 0}

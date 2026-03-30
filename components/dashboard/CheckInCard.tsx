@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
@@ -8,19 +8,28 @@ import { toast } from "sonner";
 
 interface CheckInCardProps {
   userId: string;
-  type: "morning" | "evening";
-  done: boolean;
+  completedTypes: string[];
 }
 
 const ENERGY_LABELS = ["", "Very Low", "Low", "Okay", "Good", "Great"];
 const STRESS_LABELS = ["", "Very Low", "Low", "Moderate", "High", "Very High"];
 
-export function CheckInCard({ userId, type, done: initialDone }: CheckInCardProps) {
-  const [done, setDone] = useState(initialDone);
+export function CheckInCard({ userId, completedTypes }: CheckInCardProps) {
+  const [type, setType] = useState<"morning" | "evening" | null>(null);
+  const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [sleepHours, setSleepHours] = useState<number | "">("");
   const [energy, setEnergy] = useState(0);
   const [stress, setStress] = useState(0);
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    const t = hour >= 17 ? "evening" : "morning";
+    setType(t);
+    setDone(completedTypes.includes(t));
+  }, [completedTypes]);
+
+  if (!type) return null;
 
   const isMorning = type === "morning";
 
