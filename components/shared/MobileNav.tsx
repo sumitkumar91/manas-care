@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 
 const PRIMARY = [
   { href: "/dashboard", label: "Home",    icon: LayoutDashboard },
-  { href: "/mood",      label: "Mood",    icon: Smile },
+  { href: "/checkin",   label: "Check-in", icon: Smile },
   { href: "/vedic",     label: "Vedic",   icon: Sparkles },
   { href: "/journal",   label: "Journal", icon: BookOpen },
 ];

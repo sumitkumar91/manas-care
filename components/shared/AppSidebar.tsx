@@ -20,7 +20,7 @@ import { Separator } from "@/components/ui/separator";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/mood", label: "Mood", icon: Smile },
+  { href: "/checkin", label: "Check-in", icon: Smile },
   { href: "/vedic", label: "Vedic Practices", icon: Sparkles },
   { href: "/journal", label: "Journal", icon: BookOpen },
   { href: "/vent", label: "Vent", icon: Wind },

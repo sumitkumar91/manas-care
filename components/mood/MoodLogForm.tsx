@@ -55,7 +55,7 @@ export function MoodLogForm({ userId, existingLog }: MoodLogFormProps) {
     } else {
       trackEvent("mood_logged", { mood_label: selectedMood.label, score });
       toast.success(existingLog ? "Mood updated" : "Mood logged ✓");
-      router.push("/mood/history");
+      router.push("/checkin/history");
       router.refresh();
       setSaving(false);
     }

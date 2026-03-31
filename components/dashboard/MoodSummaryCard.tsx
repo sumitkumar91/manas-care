@@ -29,7 +29,7 @@ export function MoodSummaryCard({ todayLog }: MoodSummaryCardProps) {
           )}
         </div>
         <Link
-          href="/mood"
+          href="/checkin"
           className={buttonVariants({ size: "sm", variant: todayLog ? "outline" : "default" })}
         >
           {todayLog ? "Update" : "Log mood"}
