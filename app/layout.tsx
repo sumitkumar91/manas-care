@@ -27,20 +27,21 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "Manas Care",
   },
-  title: "Manas Care - Your mental wellness companion",
+  title: "Manas Care - Mental Wellness Rooted in Vedic Science",
   description:
-    "Manas Care helps students and young adults manage their mental health through mood tracking, guided journaling, and compassionate AI support.",
+    "Free mental wellness app for students and young adults. Raga Chikitsa, Pranayama, Trataka, Dinacharya, mood tracking, and encrypted journaling — all rooted in Indian classical science.",
+  keywords: ["mental wellness", "Raga Chikitsa", "Pranayama", "Trataka", "Dinacharya", "Vedic", "mood tracking", "journaling", "students"],
   openGraph: {
-    title: "Manas Care - Your mental wellness companion",
-    description: "Vedic techniques meet modern AI for mental wellness. Raga therapy, Pranayama, Trataka, journaling and more.",
+    title: "Manas Care - Mental Wellness Rooted in Vedic Science",
+    description: "Free mental wellness app built on Indian classical science. Raga therapy, Pranayama, Trataka, Dinacharya, mood tracking and encrypted journaling.",
     url: "https://manascare.vercel.app",
     siteName: "Manas Care",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Manas Care - Your mental wellness companion",
-    description: "Vedic techniques meet modern AI for mental wellness.",
+    title: "Manas Care - Mental Wellness Rooted in Vedic Science",
+    description: "Free mental wellness app built on Indian classical science. Raga therapy, Pranayama, Trataka, Dinacharya, mood tracking and encrypted journaling.",
   },
 };
 
