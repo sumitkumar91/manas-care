@@ -16,15 +16,13 @@ export function MoodSummaryCard({ todayLog }: MoodSummaryCardProps) {
         <div className="flex-1 min-w-0">
           {todayLog ? (
             <>
-              <p className="font-semibold leading-none">
-                {todayLog.mood_label}
-              </p>
+              <p className="font-semibold leading-none">{todayLog.mood_label}</p>
               <p className="text-xs text-muted-foreground mt-1">Today&apos;s mood logged</p>
             </>
           ) : (
             <>
-              <p className="font-semibold leading-none">No mood logged yet</p>
-              <p className="text-xs text-muted-foreground mt-1">How are you feeling today?</p>
+              <p className="font-semibold leading-none">Daily check-in</p>
+              <p className="text-xs text-muted-foreground mt-1">Log your mood and how your day is going</p>
             </>
           )}
         </div>
@@ -32,7 +30,7 @@ export function MoodSummaryCard({ todayLog }: MoodSummaryCardProps) {
           href="/checkin"
           className={buttonVariants({ size: "sm", variant: todayLog ? "outline" : "default" })}
         >
-          {todayLog ? "Update" : "Log mood"}
+          {todayLog ? "Update" : "Check in"}
         </Link>
       </CardContent>
     </Card>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Smile, BookOpen, Sparkles } from "lucide-react";
 
 const actions = [
-  { href: "/mood", icon: Smile, label: "Log Mood", color: "text-blue-500 bg-blue-50 dark:bg-blue-950/30" },
+  { href: "/checkin", icon: Smile, label: "Check in", color: "text-blue-500 bg-blue-50 dark:bg-blue-950/30" },
   { href: "/journal/new", icon: BookOpen, label: "Write", color: "text-green-600 bg-green-50 dark:bg-green-950/30" },
   { href: "/vedic", icon: Sparkles, label: "Vedic", color: "text-amber-500 bg-amber-50 dark:bg-amber-950/30" },
 ];

@@ -7,7 +7,7 @@ Live at [manascare.vercel.app](https://manascare.vercel.app) · [Join Discord](h
 ## Features
 
 - **Vedic Practices** — Music Therapy (Raga Chikitsa), Pranayama (breath control), Trataka (gazing meditation), and Dinacharya (circadian scheduling)
-- **Mood Tracking** — Daily mood logs with streak tracking and trend history
+- **Daily Check-in** — Log mood, energy, stress, and sleep in one place. Weekly summary on the dashboard.
 - **Guided Journaling** — Free write, CBT exercises, and gratitude entries — all encrypted client-side
 - **Vent Space** — Anonymous, judgment-free space to let it out
 - **Privacy First** — Journal content is AES-GCM encrypted in the browser; the server only ever stores ciphertext
