@@ -7,10 +7,9 @@ import { CheckInCard } from "@/components/dashboard/CheckInCard";
 interface CheckInTabsProps {
   userId: string;
   todayLog?: { id: string; mood_emoji: string; mood_label: string; score: number; notes: string | null };
-  completedTypes: string[];
 }
 
-export function CheckInTabs({ userId, todayLog, completedTypes }: CheckInTabsProps) {
+export function CheckInTabs({ userId, todayLog }: CheckInTabsProps) {
   return (
     <Tabs defaultValue="mood">
       <TabsList className="w-full mb-6">
@@ -21,7 +20,7 @@ export function CheckInTabs({ userId, todayLog, completedTypes }: CheckInTabsPro
         <MoodLogForm userId={userId} existingLog={todayLog} />
       </TabsContent>
       <TabsContent value="checkin">
-        <CheckInCard userId={userId} completedTypes={completedTypes} />
+        <CheckInCard userId={userId} />
       </TabsContent>
     </Tabs>
   );

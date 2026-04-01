@@ -6,28 +6,39 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 
-interface CheckInCardProps {
-  userId: string;
-  completedTypes: string[];
-}
-
 const ENERGY_LABELS = ["", "Very Low", "Low", "Okay", "Good", "Great"];
 const STRESS_LABELS = ["", "Very Low", "Low", "Moderate", "High", "Very High"];
 
-export function CheckInCard({ userId, completedTypes }: CheckInCardProps) {
+export function CheckInCard({ userId }: { userId: string }) {
   const [type, setType] = useState<"morning" | "evening" | null>(null);
-  const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [sleepHours, setSleepHours] = useState<number | "">("");
   const [energy, setEnergy] = useState(0);
   const [stress, setStress] = useState(0);
+  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
     const hour = new Date().getHours();
     const t = hour >= 17 ? "evening" : "morning";
     setType(t);
-    setDone(completedTypes.includes(t));
-  }, [completedTypes]);
+
+    const today = new Date().toLocaleDateString("en-CA");
+    (createClient() as any)
+      .from("daily_checkins")
+      .select("energy, stress, sleep_hours")
+      .eq("user_id", userId)
+      .eq("date", today)
+      .eq("type", t)
+      .maybeSingle()
+      .then(({ data }: { data: { energy: number; stress: number; sleep_hours: number | null } | null }) => {
+        if (data) {
+          setEnergy(data.energy);
+          setStress(data.stress);
+          setSleepHours(data.sleep_hours ?? "");
+          setIsUpdate(true);
+        }
+      });
+  }, [userId]);
 
   if (!type) return null;
 
@@ -39,10 +50,9 @@ export function CheckInCard({ userId, completedTypes }: CheckInCardProps) {
     if (!stress) return toast.error("Select stress level");
 
     setSubmitting(true);
-    const supabase = createClient();
     const today = new Date().toLocaleDateString("en-CA");
 
-    const { error } = await (supabase as any).from("daily_checkins").upsert({
+    const { error } = await (createClient() as any).from("daily_checkins").upsert({
       user_id: userId,
       date: today,
       type,
@@ -54,25 +64,10 @@ export function CheckInCard({ userId, completedTypes }: CheckInCardProps) {
     if (error) {
       toast.error("Failed to save check-in.");
     } else {
-      setDone(true);
+      toast.success(isUpdate ? "Check-in updated" : "Check-in saved");
+      setIsUpdate(true);
     }
     setSubmitting(false);
-  }
-
-  if (done) {
-    return (
-      <Card>
-        <CardContent className="pt-5 pb-5 flex items-center gap-4">
-          <div className="h-12 w-12 rounded-xl flex items-center justify-center text-2xl shrink-0 bg-muted">
-            {isMorning ? "🌅" : "🌙"}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-semibold leading-none">{isMorning ? "Morning" : "Evening"} check-in done</p>
-            <p className="text-xs text-muted-foreground mt-1">See you {isMorning ? "tonight" : "tomorrow"}</p>
-          </div>
-        </CardContent>
-      </Card>
-    );
   }
 
   return (
@@ -83,7 +78,10 @@ export function CheckInCard({ userId, completedTypes }: CheckInCardProps) {
             {isMorning ? "🌅" : "🌙"}
           </div>
           <div>
-            <p className="font-semibold leading-none">{isMorning ? "Morning" : "Evening"} check-in</p>
+            <p className="font-semibold leading-none">
+              {isMorning ? "Morning" : "Evening"} check-in
+              {isUpdate && <span className="text-xs font-normal text-muted-foreground ml-2">already logged</span>}
+            </p>
             <p className="text-xs text-muted-foreground mt-1">
               {isMorning ? "How did you sleep? How are you starting the day?" : "How did the day go?"}
             </p>
@@ -160,7 +158,7 @@ export function CheckInCard({ userId, completedTypes }: CheckInCardProps) {
         </div>
 
         <Button onClick={handleSubmit} disabled={submitting} className="w-full">
-          {submitting ? "Saving..." : "Submit check-in"}
+          {submitting ? "Saving..." : isUpdate ? "Update check-in" : "Submit check-in"}
         </Button>
       </CardContent>
     </Card>

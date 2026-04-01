@@ -20,26 +20,17 @@ export default async function CheckInPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/");
 
-  const today = new Date().toISOString().slice(0, 10);
   const { start, end } = getTodayRange();
 
-  const [{ data: todayLog }, { data: checkins }] = await Promise.all([
-    supabase
-      .from("mood_logs")
-      .select("*")
-      .eq("user_id", user.id)
-      .gte("logged_at", start)
-      .lte("logged_at", end)
-      .order("logged_at", { ascending: false })
-      .limit(1)
-      .maybeSingle(),
-    (supabase as any).from("daily_checkins")
-      .select("type")
-      .eq("user_id", user.id)
-      .eq("date", today),
-  ]);
-
-  const completedTypes: string[] = checkins?.map((c: { type: string }) => c.type) ?? [];
+  const { data: todayLog } = await supabase
+    .from("mood_logs")
+    .select("*")
+    .eq("user_id", user.id)
+    .gte("logged_at", start)
+    .lte("logged_at", end)
+    .order("logged_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
 
   return (
     <div>
@@ -56,7 +47,6 @@ export default async function CheckInPage() {
         <CheckInTabs
           userId={user.id}
           todayLog={todayLog ?? undefined}
-          completedTypes={completedTypes}
         />
       </div>
     </div>
