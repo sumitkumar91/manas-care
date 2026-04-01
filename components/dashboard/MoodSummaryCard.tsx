@@ -1,12 +1,34 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/lib/button-variants";
+import { createClient } from "@/lib/supabase/client";
 
-interface MoodSummaryCardProps {
-  todayLog: { mood_emoji: string; mood_label: string; score: number } | null;
-}
+export function MoodSummaryCard({ userId }: { userId: string }) {
+  const [todayLog, setTodayLog] = useState<{ mood_emoji: string; mood_label: string } | null | undefined>(undefined);
 
-export function MoodSummaryCard({ todayLog }: MoodSummaryCardProps) {
+  useEffect(() => {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+    const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1).toISOString();
+
+    createClient()
+      .from("mood_logs")
+      .select("mood_emoji, mood_label")
+      .eq("user_id", userId)
+      .gte("logged_at", start)
+      .lt("logged_at", end)
+      .order("logged_at", { ascending: false })
+      .limit(1)
+      .maybeSingle()
+      .then(({ data }) => setTodayLog(data ?? null));
+  }, [userId]);
+
+  // still loading
+  if (todayLog === undefined) return null;
+
   return (
     <Card>
       <CardContent className="pt-5 pb-5 flex items-center gap-4">
