@@ -4,12 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MoodLogForm } from "@/components/mood/MoodLogForm";
 import { CheckInCard } from "@/components/dashboard/CheckInCard";
 
-interface CheckInTabsProps {
-  userId: string;
-  todayLog?: { id: string; mood_emoji: string; mood_label: string; score: number; notes: string | null };
-}
-
-export function CheckInTabs({ userId, todayLog }: CheckInTabsProps) {
+export function CheckInTabs({ userId }: { userId: string }) {
   return (
     <Tabs defaultValue="mood">
       <TabsList className="w-full mb-6">
@@ -17,7 +12,7 @@ export function CheckInTabs({ userId, todayLog }: CheckInTabsProps) {
         <TabsTrigger value="checkin" className="flex-1">Daily Check-in</TabsTrigger>
       </TabsList>
       <TabsContent value="mood">
-        <MoodLogForm userId={userId} existingLog={todayLog} />
+        <MoodLogForm userId={userId} />
       </TabsContent>
       <TabsContent value="checkin">
         <CheckInCard userId={userId} />
