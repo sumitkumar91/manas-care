@@ -18,11 +18,14 @@ export function CheckInCard({ userId }: { userId: string }) {
   const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
-    const hour = new Date().getHours();
+    const now = new Date();
+    const hour = now.getHours();
     const t = hour >= 5 && hour < 17 ? "morning" : "evening";
     setType(t);
 
-    const today = new Date().toLocaleDateString("en-CA");
+    // Between midnight and 5AM, evening check-in belongs to the previous day
+    const dateRef = hour < 5 ? new Date(now.getTime() - 86400000) : now;
+    const today = dateRef.toLocaleDateString("en-CA");
     (createClient() as any)
       .from("daily_checkins")
       .select("energy, stress, sleep_hours")
@@ -50,7 +53,9 @@ export function CheckInCard({ userId }: { userId: string }) {
     if (!stress) return toast.error("Select stress level");
 
     setSubmitting(true);
-    const today = new Date().toLocaleDateString("en-CA");
+    const now = new Date();
+    const dateRef = now.getHours() < 5 ? new Date(now.getTime() - 86400000) : now;
+    const today = dateRef.toLocaleDateString("en-CA");
 
     const { error } = await (createClient() as any).from("daily_checkins").upsert({
       user_id: userId,
