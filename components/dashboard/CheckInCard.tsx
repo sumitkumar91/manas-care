@@ -19,7 +19,7 @@ export function CheckInCard({ userId }: { userId: string }) {
 
   useEffect(() => {
     const hour = new Date().getHours();
-    const t = hour >= 17 ? "evening" : "morning";
+    const t = hour >= 5 && hour < 17 ? "morning" : "evening";
     setType(t);
 
     const today = new Date().toLocaleDateString("en-CA");
