@@ -20,6 +20,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://manascare.vercel.app"),
+  alternates: { canonical: "/" },
   icons: { icon: "/logo2.png", apple: "/logo2.png" },
   manifest: "/manifest.webmanifest",
   appleWebApp: {
